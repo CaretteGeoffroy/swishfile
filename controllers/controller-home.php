@@ -16,11 +16,12 @@ if (isset($_POST["submit"])) {
 
 	$uniqueFolderName = uniqid(rand(), true); // Génère un nom de DOSSIER unique à chaques UPLOAD.
 
-	$currentArrayNameFile = $_FILES["up"]["name"]; 
-	$currentArrayTypeFile = $_FILES["up"]["type"]; 
-	$currentArrayTempNameFile = $_FILES["up"]["tmp_name"]; 
-	$currentArrayErrorFile = $_FILES["up"]["error"]; 
-	$currentArraySizeFile = $_FILES["up"]["size"];
+	// Tableaux qui contiennent les informations de chacun des fichiers uploadés...
+	$currentArrayNameFile = $_FILES["up"]["name"]; // Tout les noms de chacuns des fichiers
+	$currentArrayTypeFile = $_FILES["up"]["type"]; // Tout les types de chacun des fichiers
+	$currentArrayTempNameFile = $_FILES["up"]["tmp_name"]; // Tout les fichiers temporaires
+	$currentArrayErrorFile = $_FILES["up"]["error"]; // Tout les messages d'erreur de chacun des fichiers
+	$currentArraySizeFile = $_FILES["up"]["size"]; // Tout les poids en Octet de chacun des fichiers
 
 	// Récupére la taille total des fichiers UPLOAD
 	$totalSize = getTotalSize($currentArraySizeFile);
@@ -33,25 +34,30 @@ if (isset($_POST["submit"])) {
 	// Si la taille du fichier est inférieur à la taille max autorisé...
 	if ($totalSize < $maxSize) {
 
+		// Pour chacuns des noms de fichiers...
 		foreach ($currentArrayNameFile as $element) {
 
-			// Découpe le nom des fichiers pour récupérer leurs extensions...
+			// Découpe le nom du fichier pour récupérer son extensions et ajoute le dans un array...
 			$extension_upload[] =  strtolower(  substr(  strrchr($element, '.')  ,1)  ); 
 		}
 
 		// Si les extensions récupérées sont contenues dans le tableau des extensions autorisées.
-		if ( array_intersect($extension_upload,$extensions_valides) ) { 
+		if ( array_intersect($extension_upload,$extensions_valides) ) {
 
-			mkdir("cloud/{$uniqueFolderName}/", 0777, true); // Créer le DOSSIER unique à l'UPLOAD...
+			// Créer le DOSSIER unique à l'UPLOAD...
+			mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
+
 
 			for($i = 0; $i < count($currentArrayTempNameFile); $i++) {
 
-				$nom = md5(uniqid(rand(), true)); // Créer un nom unique pour un fichier...
+				// Créer un nom unique pour un fichier...
+				$nom = md5(uniqid(rand(), true)); 
+
 				// Réassemble la chaine (nom du fichier) avec le nom unique du FICHIER...
 				$nom = "cloud/{$uniqueFolderName}/".$nom.".".$extension_upload[$i]; 
 
 				// Déplace le FICHIER dans le DOSSIER
-				$resultat = move_uploaded_file($element,$nom); 
+				$resultat = move_uploaded_file($currentArrayTempNameFile[$i],$nom); 
 
 				// Si le fichier est correctement déplacer...
 				if ($resultat) echo "Transfert réussi";

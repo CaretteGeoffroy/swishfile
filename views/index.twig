@@ -10,7 +10,7 @@
 </head>
 <body>
 	<form action="transfer-system/home" method="post" enctype="multipart/form-data">
-		<input type="file" name="up" accept=".rar,.zip,.jpg,.txt,.jpeg">
+		<input type="file" name="up[]" accept=".rar,.zip,.jpg,.txt,.jpeg" multiple="" />
 		<input type="hidden" name="MAX_FILE_SIZE" value="5000000">
 		<button type="submit" value="Upload" name="submit">Upload</button>
 	</form>

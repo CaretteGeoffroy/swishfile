@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<base href="https://localhost:8080/transfer-system">
+	<base href="http://localhost:8080/transfer-system">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="envoyer vos fichier rapidement et simplement !">
+    <link rel="stylesheet" type="text/css" href="nodes_modules/bootstrap/dist/css/bootstrap.css">
 	<title>Document</title>
 </head>
 <body>
-	
+	<form action="transfer-system/home" method="post" enctype="multipart/form-data">
+		<input type="file" name="up" accept=".rar,.zip,.jpg,.txt,.jpeg">
+		<input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+		<button type="submit" value="Upload" name="submit">Upload</button>
+	</form>
 </body>
 </html>

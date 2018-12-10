@@ -4,7 +4,7 @@
     
 	$username = 'root';
 	$password = 'online@2017';
-	$database ='transfert_system';
+	$database ='TRANSFER_DB';
 	$host = 'localhost';
 
     try{

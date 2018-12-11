@@ -15,6 +15,12 @@
 		switch ($controller) {
 			case 'home':
 				require_once("controllers/controller-home.php");
+				break;
+			case 'down':
+				require_once("controllers/download.php");
+				break;	
+			case 'admin':
+				require_once("models/admin.php");
 				break;		
 			default:
 				require_once("controllers/404.twig");

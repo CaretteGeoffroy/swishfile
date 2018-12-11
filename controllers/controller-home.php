@@ -12,7 +12,8 @@ echo $twig->render("index.twig");
 $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
 $i = uniqid(rand(), true);
 
-
+$mail = $_POST['mail'];
+echo $mail;
 if (isset($_POST["submit"])) {
 	$maxSize = $_POST["MAX_FILE_SIZE"];
 	if ($_FILES["up"]["size"] < $maxSize) {
@@ -29,7 +30,4 @@ if (isset($_POST["submit"])) {
 	} 
 }
 
-//1. strrchr renvoie l'extension avec le point (« . »).
-//2. substr(chaine,1) ignore le premier caractère de chaine.
-//3. strtolower met l'extension en minuscules.
 ?>

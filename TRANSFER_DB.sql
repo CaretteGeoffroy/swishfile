@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Lun 10 Décembre 2018 à 20:49
+-- Généré le :  Mar 11 Décembre 2018 à 15:42
 -- Version du serveur :  10.3.11-MariaDB-1:10.3.11+maria~bionic
 -- Version de PHP :  7.2.10-0ubuntu0.18.04.1
 
@@ -39,23 +39,13 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `files` (
-  `id` int(11) NOT NULL,
-  `file_url` char(255) COLLATE utf8_unicode_ci NOT NULL,
-  `file_name` char(255) COLLATE utf8_unicode_ci NOT NULL,
-  `file_size` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `file_ext` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `file_key` char(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_upload_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Contenu de la table `files`
---
-
-INSERT INTO `files` (`id`, `file_url`, `file_name`, `file_size`, `file_ext`, `file_key`, `user_upload_id`) VALUES
-(1, '211546', 'testes', '2356', 'jpg', '', 1),
-(2, '12365465312', 'testest', '2546', 'png', '', 2),
-(3, '12365465312', 'testest', '2546', 'png', '', 2);
+  `id` int(4) NOT NULL,
+  `file_ext` varchar(255) NOT NULL,
+  `file_key` varchar(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `file_size` varchar(255) NOT NULL,
+  `user_upload_id` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -77,7 +67,7 @@ CREATE TABLE `files_downloaded` (
 CREATE TABLE `user_download` (
   `id` int(11) NOT NULL,
   `mail_receiver` char(255) COLLATE utf8_unicode_ci NOT NULL,
-  `download_date` datetime NOT NULL
+  `download_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -97,16 +87,17 @@ INSERT INTO `user_download` (`id`, `mail_receiver`, `download_date`) VALUES
 CREATE TABLE `user_upload` (
   `id` int(11) NOT NULL,
   `mail_sender` char(255) COLLATE utf8_unicode_ci NOT NULL,
-  `upload_date` datetime NOT NULL
+  `upload_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `message` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `user_upload`
 --
 
-INSERT INTO `user_upload` (`id`, `mail_sender`, `upload_date`) VALUES
-(1, 'valerie.h@codeur.online', '2018-12-10 12:40:00'),
-(2, 'abdelkrim.n@codeur.online', '2018-12-10 21:44:12');
+INSERT INTO `user_upload` (`id`, `mail_sender`, `upload_date`, `message`) VALUES
+(1, 'valerie.h@codeur.online', '2018-12-10 12:40:00', ''),
+(2, 'abdelkrim.n@codeur.online', '2018-12-10 21:44:12', '');
 
 --
 -- Index pour les tables exportées
@@ -122,8 +113,7 @@ ALTER TABLE `admin`
 -- Index pour la table `files`
 --
 ALTER TABLE `files`
-  ADD PRIMARY KEY (`id`,`user_upload_id`),
-  ADD KEY `fk_files_user_upload1_idx` (`user_upload_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `user_download`
@@ -150,7 +140,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT pour la table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `user_download`
 --
@@ -161,16 +151,6 @@ ALTER TABLE `user_download`
 --
 ALTER TABLE `user_upload`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Contraintes pour les tables exportées
---
-
---
--- Contraintes pour la table `files`
---
-ALTER TABLE `files`
-  ADD CONSTRAINT `fk_files_user_upload1` FOREIGN KEY (`user_upload_id`) REFERENCES `user_upload` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

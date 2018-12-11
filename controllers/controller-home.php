@@ -2,6 +2,7 @@
 
 
 require_once('vendor/autoload.php');
+require_once('models/model-upload.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
@@ -14,7 +15,14 @@ $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' ); // Extensions aut
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {
 
-	$uniqueFolderName = uniqid(rand(), true); // Génère un nom de DOSSIER unique à chaques UPLOAD.
+	// Mail de l'envoyeur :
+	$senderMail = $_POST["sender-mail"];
+
+	// Tableau mail des receveurs :
+	$receiverMail = $_POST["receiver-mail"];
+
+	// Génère un nom de DOSSIER unique à chaques UPLOAD.
+	$uniqueFolderName = uniqid(rand(), true); 
 
 	// Tableaux qui contiennent les informations de chacun des fichiers uploadés...
 	$currentArrayNameFile = $_FILES["up"]["name"]; // Tout les noms de chacuns des fichiers
@@ -47,7 +55,7 @@ if (isset($_POST["submit"])) {
 			// Créer le DOSSIER unique à l'UPLOAD...
 			mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
 
-
+			// Pour chaques fichiers temporaires...
 			for($i = 0; $i < count($currentArrayTempNameFile); $i++) {
 
 				// Créer un nom unique pour un fichier...
@@ -60,7 +68,11 @@ if (isset($_POST["submit"])) {
 				$resultat = move_uploaded_file($currentArrayTempNameFile[$i],$nom); 
 
 				// Si le fichier est correctement déplacer...
-				if ($resultat) echo "Transfert réussi";
+				// if ($resultat) echo "Transfert réussi";
+
+
+				prepareDatasForInsert();
+			
 			}
 			
 		} else {
@@ -70,6 +82,7 @@ if (isset($_POST["submit"])) {
 	} 
 }
 
+// Calcul la taille total de tout les fichiers...
 function getTotalSize($array) {
 	$total = 0;
 	foreach ($array as $size) {
@@ -78,5 +91,11 @@ function getTotalSize($array) {
 	return $total;
 }
 
+function prepareDatasForInsert() {
+
+	
+	insertFileToDb($arrayDatas);
+
+}
 
 ?>

@@ -11,6 +11,11 @@
 <body>
 	<form action="transfer-system/home" method="post" enctype="multipart/form-data">
 		<input type="file" name="up[]" accept=".rar,.zip,.jpg,.txt,.jpeg" multiple="" />
+		<input type="mail" name="sender-mail" placeholder="sender">
+		<input type="mail" name="receiver-mail[]" placeholder="receiver">
+		<input type="mail" name="receiver-mail[]" placeholder="receiver">
+		<input type="mail" name="receiver-mail[]" placeholder="receiver">
+		
 		<input type="hidden" name="MAX_FILE_SIZE" value="5000000">
 		<button type="submit" value="Upload" name="submit">Upload</button>
 	</form>

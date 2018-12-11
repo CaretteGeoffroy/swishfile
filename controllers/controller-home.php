@@ -1,8 +1,13 @@
 <?php 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
 require_once('models/model-upload.php');
+require('vendor/phpmailer/phpmailer/src/Exception.php');
+require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
+require('vendor/phpmailer/phpmailer/src/SMTP.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
@@ -20,6 +25,9 @@ if (isset($_POST["submit"])) {
 
 	// Tableau mail des receveurs :
 	$receiverMail = $_POST["receiver-mail"];
+
+	// Message à l'UPLOAD
+	$message = $_POST["message"];
 
 	// Génère un nom de DOSSIER unique à chaques UPLOAD.
 	$uniqueFolderName = uniqid(rand(), true); 
@@ -55,8 +63,14 @@ if (isset($_POST["submit"])) {
 			// Créer le DOSSIER unique à l'UPLOAD...
 			mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
 
+			// Récupère le nombre de fichier contenu dans l'envois..
+			$length = count($currentArrayNameFile);
+
+			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
+			insertSenderUpload($senderMail, $message);
+
 			// Pour chaques fichiers temporaires...
-			for($i = 0; $i < count($currentArrayTempNameFile); $i++) {
+			for($i = 0; $i < $length; $i++) {
 
 				// Créer un nom unique pour un fichier...
 				$nom = md5(uniqid(rand(), true)); 
@@ -69,16 +83,23 @@ if (isset($_POST["submit"])) {
 
 				// Si le fichier est correctement déplacer...
 				// if ($resultat) echo "Transfert réussi";
-
-
-				prepareDatasForInsert();
-			
+				// Pour chaques fichiers , crée un tableau avec toute les infos...
+				$arrayFileInfos = array('name' =>   $currentArrayNameFile[$i],
+								   		'size' =>   $currentArraySizeFile[$i],
+								        'ext'  =>   $currentArrayTypeFile[$i],
+								        'key'  =>   $uniqueFolderName
+				);
+				
+				// Insert les infos de CHAQUES FICHIER dans la table files..
+				insertFileUpload($arrayFileInfos);
+				
 			}
-			
+
 		} else {
 
 			// MESSAGE / RENDER  : Extension non-autorisée
 		}
+		die;
 	} 
 }
 
@@ -91,11 +112,44 @@ function getTotalSize($array) {
 	return $total;
 }
 
-function prepareDatasForInsert() {
 
+function sendMail() {
+	$mail = new PHPMailer(true); 
+	try {
+	    //Server settings
+	    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+	    $mail->isSMTP();                                      // Set mailer to use SMTP
+	    $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup SMTP servers
+	    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+	    $mail->Username = 'user@example.com';                 // SMTP username
+	    $mail->Password = 'secret';                           // SMTP password
+	    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+	    $mail->Port = 587;                                    // TCP port to connect to
+
+	    //Recipients
+	    $mail->setFrom('from@example.com', 'Mailer');
+	    $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+	    $mail->addAddress('ellen@example.com');               // Name is optional
+	    $mail->addReplyTo('info@example.com', 'Information');
+	    $mail->addCC('cc@example.com');
+	    $mail->addBCC('bcc@example.com');
+
+	    //Attachments
+	    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+	    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+	    //Content
+	    $mail->isHTML(true);                                  // Set email format to HTML
+	    $mail->Subject = 'Here is the subject';
+	    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+	    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+	    $mail->send();
+	    echo 'Message has been sent';
+	} catch (Exception $e) {
+    	echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+	}
 	
-	insertFileToDb($arrayDatas);
-
 }
 
 ?>

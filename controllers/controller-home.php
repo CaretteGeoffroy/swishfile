@@ -1,20 +1,37 @@
 <?php 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
+require_once('models/model-upload.php');
+// require('vendor/phpmailer/phpmailer/src/Exception.php');
+// require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
+// require('vendor/phpmailer/phpmailer/src/SMTP.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
+
 // CONFIG
-$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' ); // Extensions autorisées.
+$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); // Extensions autorisées.
 
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {
 
-	$uniqueFolderName = uniqid(rand(), true); // Génère un nom de DOSSIER unique à chaques UPLOAD.
+	// Mail de l'envoyeur :
+	$senderMail = $_POST["sender-mail"];
+
+	// Tableau mail des receveurs :
+	$receiverMail = $_POST["receiver-mail"];
+
+	// Message à l'UPLOAD
+	// $message = $_POST["message"];
+
+	// Génère un nom de DOSSIER unique à chaques UPLOAD.
+	$uniqueFolderName = uniqid(rand(), true); 
 
 	// Tableaux qui contiennent les informations de chacun des fichiers uploadés...
 	$currentArrayNameFile = $_FILES["up"]["name"]; // Tout les noms de chacuns des fichiers
@@ -47,8 +64,14 @@ if (isset($_POST["submit"])) {
 			// Créer le DOSSIER unique à l'UPLOAD...
 			mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
 
+			// Récupère le nombre de fichier contenu dans l'envois..
+			$length = count($currentArrayNameFile);
 
-			for($i = 0; $i < count($currentArrayTempNameFile); $i++) {
+			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
+			// insertSenderUpload($senderMail, $message);
+
+			// Pour chaques fichiers temporaires...
+			for($i = 0; $i < $length; $i++) {
 
 				// Créer un nom unique pour un fichier...
 				$nom = md5(uniqid(rand(), true)); 
@@ -60,16 +83,31 @@ if (isset($_POST["submit"])) {
 				$resultat = move_uploaded_file($currentArrayTempNameFile[$i],$nom); 
 
 				// Si le fichier est correctement déplacer...
-				if ($resultat) echo "Transfert réussi";
+				// if ($resultat) echo "Transfert réussi";
+				// Pour chaques fichiers , crée un tableau avec toute les infos...
+				$arrayFileInfos = array('name' =>   $currentArrayNameFile[$i],
+								   		'size' =>   $currentArraySizeFile[$i],
+								        'ext'  =>   $currentArrayTypeFile[$i],
+								        'key'  =>   $uniqueFolderName
+				);
+				
+				// MODELS :  Insert les infos de CHAQUES FICHIER dans la table files.. 
+				insertFileUpload($arrayFileInfos);
+				
 			}
-			
+
+			// l. 119 : ENVOIS DU/DES MAILS
+			sendMailTo($senderMail, $receiverMail, "http://www.google.com/"); 
+
 		} else {
 
 			// MESSAGE / RENDER  : Extension non-autorisée
 		}
+		die;
 	} 
 }
 
+// Calcul la taille total de tout les fichiers...
 function getTotalSize($array) {
 	$total = 0;
 	foreach ($array as $size) {
@@ -78,5 +116,44 @@ function getTotalSize($array) {
 	return $total;
 }
 
+
+function sendMailTo($sender, $receivers, $url) {
+
+	global $twig;
+
+	$mail = new PHPMailer(true); 
+
+	try {
+
+	    //Server settings
+	    $mail->SMTPDebug = 2;                                 
+	    $mail->isSMTP();                                      
+	    $mail->Host = 'smtp.gmail.com';  					  
+	    $mail->SMTPAuth = true;                               
+	    $mail->Username = 'swishfile.acs@gmail.com';          
+	    $mail->Password = 'online@2017';                      
+	    $mail->SMTPSecure = 'tls';                            
+	    $mail->Port = 587;                                    
+
+	    //Recipients  
+	    $mail->setFrom('swishfile.acs@gmail.com');
+
+	    foreach ($receivers as $receiver) {
+	    	$mail->addAddress($receiver);    
+	    }
+
+	    //Content
+	    $mail->isHTML(true);                                        
+	    $mail->Subject = 'Une personne vous a envoyé des fichiers';
+	    $mail->Body    = $twig->render('mail.twig',array("url" => $url));
+	 
+	    $mail->send();
+	    echo "Message envoyé !";
+
+	} catch (Exception $e) {
+    	echo "ERREUR ! Le message n'a pas été envoyé : ", $mail->ErrorInfo;
+	}
+	
+}
 
 ?>

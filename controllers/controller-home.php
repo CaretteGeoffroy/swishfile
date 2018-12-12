@@ -29,15 +29,10 @@ if (isset($_POST["submit"])) {
 	// Tableau mail des receveurs :
 	$receiverMail = $_POST["receiver-mail"];
 
-<<<<<<< HEAD
-	// Message à l'UPLOAD
-	// $message = $_POST["message"];
-=======
 	// l.173 : Verifications des champs via Regex
 	if (checkFormSend($senderMail, $receiverMail)) {
 		// Message à l'UPLOAD
 		$message = $_POST["message"];
->>>>>>> 1c5aeb6a6de078af115bc9a9a65ff01531a057a9
 
 		// Génère un nom de DOSSIER unique à chaques UPLOAD.
 		$uniqueFolderName = uniqid(rand(), true); 
@@ -74,13 +69,10 @@ if (isset($_POST["submit"])) {
 				// Créer le DOSSIER unique à l'UPLOAD...
 				mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
 
-<<<<<<< HEAD
 			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
 			// insertSenderUpload($senderMail, $message);
-=======
 				// Récupère le nombre de fichier contenu dans l'envois..
 				$length = count($currentArrayNameFile);
->>>>>>> 1c5aeb6a6de078af115bc9a9a65ff01531a057a9
 
 				// MODELS :  Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"... 
 

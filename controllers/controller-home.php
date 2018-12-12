@@ -5,17 +5,17 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
 require_once('models/model-upload.php');
-require('vendor/phpmailer/phpmailer/src/Exception.php');
-require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
-require('vendor/phpmailer/phpmailer/src/SMTP.php');
+
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
+
+
 // CONFIG
-$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' ); // Extensions autorisées.
+$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'txt'); // Extensions autorisées.
 
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {
@@ -66,8 +66,8 @@ if (isset($_POST["submit"])) {
 			// Récupère le nombre de fichier contenu dans l'envois..
 			$length = count($currentArrayNameFile);
 
-			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
-			insertSenderUpload($senderMail, $message);
+			// MODELS :  Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+			// insertSenderUpload($senderMail, $message);
 
 			// Pour chaques fichiers temporaires...
 			for($i = 0; $i < $length; $i++) {
@@ -90,10 +90,13 @@ if (isset($_POST["submit"])) {
 								        'key'  =>   $uniqueFolderName
 				);
 				
-				// Insert les infos de CHAQUES FICHIER dans la table files..
-				insertFileUpload($arrayFileInfos);
+				// MODELS :  Insert les infos de CHAQUES FICHIER dans la table files.. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+				// insertFileUpload($arrayFileInfos);
 				
 			}
+
+			// l. 119 : ENVOIS DU/DES MAILS
+			sendMailTo($senderMail, $receiverMail, "http://www.google.com/"); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 		} else {
 
@@ -113,41 +116,41 @@ function getTotalSize($array) {
 }
 
 
-function sendMail() {
+function sendMailTo($sender, $receivers, $url) {
+
+	global $twig;
+
 	$mail = new PHPMailer(true); 
+
 	try {
+
 	    //Server settings
-	    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-	    $mail->isSMTP();                                      // Set mailer to use SMTP
-	    $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup SMTP servers
-	    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-	    $mail->Username = 'user@example.com';                 // SMTP username
-	    $mail->Password = 'secret';                           // SMTP password
-	    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-	    $mail->Port = 587;                                    // TCP port to connect to
+	    $mail->SMTPDebug = 2;                                 
+	    $mail->isSMTP();                                      
+	    $mail->Host = 'smtp.gmail.com';  					  
+	    $mail->SMTPAuth = true;                               
+	    $mail->Username = 'swishfile.acs@gmail.com';          
+	    $mail->Password = 'online@2017';                      
+	    $mail->SMTPSecure = 'tls';                            
+	    $mail->Port = 587;                                    
 
 	    //Recipients
-	    $mail->setFrom('from@example.com', 'Mailer');
-	    $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
-	    $mail->addAddress('ellen@example.com');               // Name is optional
-	    $mail->addReplyTo('info@example.com', 'Information');
-	    $mail->addCC('cc@example.com');
-	    $mail->addBCC('bcc@example.com');
+	    $mail->setFrom($sender);
 
-	    //Attachments
-	    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-	    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+	    foreach ($receivers as $receiver) {
+	    	$mail->addAddress($receiver);    
+	    }
 
 	    //Content
-	    $mail->isHTML(true);                                  // Set email format to HTML
-	    $mail->Subject = 'Here is the subject';
-	    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-	    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
+	    $mail->isHTML(true);                                        
+	    $mail->Subject = 'Une personne vous a envoyé des fichiers';
+	    $mail->Body    = $twig->render('mail.twig',array("url" => $url));
+	 
 	    $mail->send();
-	    echo 'Message has been sent';
+	    echo "Message envoyé !";
+
 	} catch (Exception $e) {
-    	echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+    	echo "ERREUR ! Le message n'a pas été envoyé : ", $mail->ErrorInfo;
 	}
 	
 }

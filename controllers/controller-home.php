@@ -5,9 +5,9 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
 require_once('models/model-upload.php');
-require('vendor/phpmailer/phpmailer/src/Exception.php');
-require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
-require('vendor/phpmailer/phpmailer/src/SMTP.php');
+// require('vendor/phpmailer/phpmailer/src/Exception.php');
+// require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
+// require('vendor/phpmailer/phpmailer/src/SMTP.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
@@ -15,7 +15,7 @@ $twig = new Twig_Environment($loader);
 echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
 // CONFIG
-$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' ); // Extensions autorisées.
+$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); // Extensions autorisées.
 
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {
@@ -27,7 +27,7 @@ if (isset($_POST["submit"])) {
 	$receiverMail = $_POST["receiver-mail"];
 
 	// Message à l'UPLOAD
-	$message = $_POST["message"];
+	// $message = $_POST["message"];
 
 	// Génère un nom de DOSSIER unique à chaques UPLOAD.
 	$uniqueFolderName = uniqid(rand(), true); 
@@ -67,7 +67,7 @@ if (isset($_POST["submit"])) {
 			$length = count($currentArrayNameFile);
 
 			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
-			insertSenderUpload($senderMail, $message);
+			// insertSenderUpload($senderMail, $message);
 
 			// Pour chaques fichiers temporaires...
 			for($i = 0; $i < $length; $i++) {

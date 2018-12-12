@@ -15,7 +15,6 @@ $twig = new Twig_Environment($loader);
 echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
 
-
 // CONFIG
 $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); // Extensions autorisées.
 
@@ -92,13 +91,13 @@ if (isset($_POST["submit"])) {
 								        'key'  =>   $uniqueFolderName
 				);
 				
-				// MODELS :  Insert les infos de CHAQUES FICHIER dans la table files.. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// insertFileUpload($arrayFileInfos);
+				// MODELS :  Insert les infos de CHAQUES FICHIER dans la table files.. 
+				insertFileUpload($arrayFileInfos);
 				
 			}
 
 			// l. 119 : ENVOIS DU/DES MAILS
-			sendMailTo($senderMail, $receiverMail, "http://www.google.com/"); //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+			sendMailTo($senderMail, $receiverMail, "http://www.google.com/"); 
 
 		} else {
 
@@ -136,8 +135,8 @@ function sendMailTo($sender, $receivers, $url) {
 	    $mail->SMTPSecure = 'tls';                            
 	    $mail->Port = 587;                                    
 
-	    //Recipients
-	    $mail->setFrom($sender);
+	    //Recipients  
+	    $mail->setFrom('swishfile.acs@gmail.com');
 
 	    foreach ($receivers as $receiver) {
 	    	$mail->addAddress($receiver);    

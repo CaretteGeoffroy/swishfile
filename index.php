@@ -23,7 +23,7 @@
 				require_once("controllers/controller-dashboard.php");
 				break;			
 			default:
-				require_once("controllers/404.twig");
+				require_once("views/404.twig");
 				break;
 
 		}

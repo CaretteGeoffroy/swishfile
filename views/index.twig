@@ -17,20 +17,14 @@
 
 <body>
 	<section class="container-fluid" id="form">
+			<h1 class="text-center mt-5 mb-5">Swishfile </h1>
+			<div id="background-cycler" class="background-cycler">
+					<img id="imgPrev" />
+					<img id="imgNext" />
+				</div>
 
-		<h1 class="text-center mb-5">Swishfile </h1>
-		<div class="container id=" background_cycler">
-
-			<div class="img active" style="background:url('media/1.jpg') top left no-repeat; background-size:cover;"></div>
-
-			<div class="img" style="background:url('media/2.jpg') top left no-repeat; background-size:cover;"></div>
-
-			<div class="img" style="background:url('media/3.jpg') top left no-repeat; background-size:cover;"></div>
-
-			<div class="img" style="background:url('media/4.jpg') top left no-repeat; background-size:cover;"></div>
-
-			<div class="img" style="background:url('media/5.jpg') top left no-repeat; background-size:cover;"></div>
-
+		
+		
 			<div class="row">
 				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-center">
 				</div>
@@ -40,26 +34,26 @@
 							<strong>Envoie jusqu'à 5 Mo de fichier(s)</strong>
 						</h3>
 						<div class="card-body px-lg-5 pt-0">
-							<form class="md-form" style="color: #757575" action="transfer-system/home" method="post" enctype="multipart/form-data">
+							<form class="md-form mt-4" style="color: #757575" action="transfer-system/home" method="post" enctype="multipart/form-data">
 								<input class="form-control" type="mail" name="sender-mail" placeholder="De (adresse mail)">
-								<div class="row">
-									<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
+								<div>
+									<input class="form-control mt-3 rec" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
 
-									<a class="btn-xsm btn-secondary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false"
-									 aria-controls="collapse1">+</a>
+									<div><a class="btn-xsm btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false"
+									 aria-controls="collapse1">+</a></div>
 								</div>
-								<input class="collapse multi-collapse" id="collapse1" class="form-control" type="mail" name="receiver-mail[]"
+								<input class="collapse multi-collapse mt-1 rec" id="collapse1" class="form-control" type="mail" name="receiver-mail[]"
 								 placeholder="À (adresse mail)">
 
-								<a class="btn-xsm btn-secondary" data-toggle="collapse" href="#multiCollapseExample2" role="button"
-								 aria-expanded="false" aria-controls="multiCollapseExample2">+</a>
-								<input class="collapse multi-collapse" id="multiCollapseExample2" class="form-control" type="mail" name="receiver-mail[]"
+								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#collapse2" role="button"
+								 aria-expanded="false" aria-controls="collapse2">+</a>
+								<input class="collapse multi-collapse mt-1 mb-3 rec" id="collapse2" class="form-control" type="mail" name="receiver-mail[]"
 								 placeholder="À (adresse mail)">
 								<div class="col-sm-10">
-									<div class="file-field">
-										<div class="btn btn-primary btn-sm ">
+									<div class="file-field ">
+										<div class="btn btn-outline-primary btn-lg pl-3 pr-3">
 											<div class="file-path-wrapper">
-												<input class="file-path validate" type="file" name="up[]" accept=".rar,.zip,.jpg,.txt,.jpeg" multiple="">
+												<input class="file-path validate btn-outline-primary" type="file" name="up[]" accept=".rar,.zip,.jpg,.txt,.jpeg" multiple="">
 												<input type="hidden" name="MAX_FILE_SIZE" value="5000000"> <br>
 											</div>
 										</div>
@@ -68,7 +62,7 @@
 
 								<div class="">
 									<div class="col-sm-10">
-										<div class="form-check">
+										<div class="form-check mt-3">
 											<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
 											<label class="form-check-label" for="gridRadios1">
 												Email
@@ -83,13 +77,13 @@
 									</div>
 								</div>
 								<div>
-									<textarea placeholder="Message"></textarea>
+									<textarea class="txtarea mt-3" placeholder="Message"></textarea>
 								</div>
-								<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" value="Upload"
+								<button class="btn btn-outline-primary btn-rounded my-4 btn-block waves-effect z-depth-0" type="submit" value="Upload"
 								 name="submit">Envoyer</button>
 								<div class="text-center">
-									<p>Vos données ?
-										<a href="">Rgpd</a>
+									<p>Vos données sont protégées !
+										<a href="views/rgpd.twig">En savoir plus</a>
 									</p>
 								</div>
 							</form>

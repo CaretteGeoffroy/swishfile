@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Mar 11 Décembre 2018 à 15:42
+-- Généré le :  Mar 11 Décembre 2018 à 20:50
 -- Version du serveur :  10.3.11-MariaDB-1:10.3.11+maria~bionic
 -- Version de PHP :  7.2.10-0ubuntu0.18.04.1
 
@@ -39,12 +39,11 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `files` (
-  `id` int(4) NOT NULL,
+  `id` int(11) NOT NULL,
   `file_ext` varchar(255) NOT NULL,
   `file_key` varchar(255) NOT NULL,
   `file_name` varchar(255) NOT NULL,
-  `file_size` varchar(255) NOT NULL,
-  `user_upload_id` int(6) NOT NULL
+  `file_size` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -56,6 +55,17 @@ CREATE TABLE `files` (
 CREATE TABLE `files_downloaded` (
   `files_id` int(4) NOT NULL,
   `user_download_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `files_uploaded`
+--
+
+CREATE TABLE `files_uploaded` (
+  `files_id` int(4) NOT NULL,
+  `user_upload_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -140,7 +150,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT pour la table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `user_download`
 --

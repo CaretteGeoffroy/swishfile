@@ -9,7 +9,7 @@
 		// print_r($requete);
 		// echo count($requete);
 		$controller = (count($requete) === 1)? "home":$requete[1];
-		// $action = (count($requete) < 3)? "liste": $requete[2];
+		$action = (count($requete) < 3)? "log": $requete[2];
 		// $id = (count($requete) < 4)? 0 : intval($requete[3]);
 
 		switch ($controller) {
@@ -18,6 +18,9 @@
 				break;
 			case 'admin':
 				require_once("controllers/controller-admin.php");
+				break;
+			case 'dashboard':
+				require_once("controllers/controller-dashboard.php");
 				break;			
 			default:
 				require_once("controllers/404.twig");

@@ -3,37 +3,58 @@
 
 <head>
 	{#
-	<base href="http://localhost:8080/transfer-system"> #}
-	<base href="http://localhost/transfer-system">
+	<base href="http://localhost:8080/transfer-system/"> #}
+	<base href="http://localhost/transfer-system/">
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	 crossorigin="anonymous">
-	<link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet"> 
+	<link rel="stylesheet" href="/transfer-system/style.css"/>
 	<title>Transfert de fichier</title>
 </head>
+
 <body>
 	<section class="container-fluid" id="form">
-		<h2 class="text-center mb-5">Transfert de fichiers </h2>
-		<div class="container">
+
+		<h1 class="text-center mb-5">Swishfile </h1>
+		<div class="container id=" background_cycler">
+
+			<div class="img active" style="background:url('media/1.jpg') top left no-repeat; background-size:cover;"></div>
+
+			<div class="img" style="background:url('media/2.jpg') top left no-repeat; background-size:cover;"></div>
+
+			<div class="img" style="background:url('media/3.jpg') top left no-repeat; background-size:cover;"></div>
+
+			<div class="img" style="background:url('media/4.jpg') top left no-repeat; background-size:cover;"></div>
+
+			<div class="img" style="background:url('media/5.jpg') top left no-repeat; background-size:cover;"></div>
+
 			<div class="row">
-				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-flex align-items-center justify-content-center">
+				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-center">
 				</div>
-				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-flex align-items-center justify-content-center">
+				<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center justify-content-center">
 					<div class="card">
-						<h5 class="card-header info-color white-text text-center py-4">
+						<h3 class="card-header white-text text-center py-4">
 							<strong>Envoie jusqu'à 5 Mo de fichier(s)</strong>
-						</h5>
+						</h3>
 						<div class="card-body px-lg-5 pt-0">
 							<form class="md-form" style="color: #757575" action="transfer-system/home" method="post" enctype="multipart/form-data">
 								<input class="form-control" type="mail" name="sender-mail" placeholder="De (adresse mail)">
+								<div class="row">
+									<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
 
-								<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">+</a>
-								<input class="collapse multi-collapse" id="multiCollapseExample1" class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">+</a>
-								<input class="collapse multi-collapse" id="multiCollapseExample2" class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
+									<a class="btn-xsm btn-secondary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false"
+									 aria-controls="collapse1">+</a>
+								</div>
+								<input class="collapse multi-collapse" id="collapse1" class="form-control" type="mail" name="receiver-mail[]"
+								 placeholder="À (adresse mail)">
+
+								<a class="btn-xsm btn-secondary" data-toggle="collapse" href="#multiCollapseExample2" role="button"
+								 aria-expanded="false" aria-controls="multiCollapseExample2">+</a>
+								<input class="collapse multi-collapse" id="multiCollapseExample2" class="form-control" type="mail" name="receiver-mail[]"
+								 placeholder="À (adresse mail)">
 								<div class="col-sm-10">
 									<div class="file-field">
 										<div class="btn btn-primary btn-sm ">
@@ -75,7 +96,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-flex align-items-center justify-content-center">
+				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-center">
 				</div>
 			</div>
 		</div>
@@ -86,6 +107,9 @@
 	 crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	 crossorigin="anonymous"></script>
+	<script src="//code.jquery.com/jquery.min.js"></script>
+	<script src="/transfer-system/slideshow.js"></script>
+
 </body>
 
 </html>

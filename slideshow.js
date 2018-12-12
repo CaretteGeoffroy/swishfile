@@ -1,0 +1,1 @@
+$('#background_cycler').hide();

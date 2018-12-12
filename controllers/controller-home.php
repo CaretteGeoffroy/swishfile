@@ -99,7 +99,7 @@ if (isset($_POST["submit"])) {
 				}
 
 				// l. 119 : ENVOIS DU/DES MAILS
-				sendMailTo($senderMail, $receiverMail, "http://www.google.com/"); 
+				sendMailTo($senderMail, $receiverMail, $url); 
 
 			} else {
 
@@ -209,6 +209,10 @@ function checkFormSend($senderMail, $receiverMail) {
 		return false;
 	}
 
+}
+
+function makeUrlForDownload() {
+	
 }
 
 ?>

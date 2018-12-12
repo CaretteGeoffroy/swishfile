@@ -28,9 +28,12 @@
 						<div class="card-body px-lg-5 pt-0">
 							<form class="md-form" style="color: #757575" action="transfer-system/home" method="post" enctype="multipart/form-data">
 								<input class="form-control" type="mail" name="sender-mail" placeholder="De (adresse mail)">
+
 								<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
+								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">+</a>
+								<input class="collapse multi-collapse" id="multiCollapseExample1" class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
+								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">+</a>
+								<input class="collapse multi-collapse" id="multiCollapseExample2" class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
 								<div class="col-sm-10">
 									<div class="file-field">
 										<div class="btn btn-primary btn-sm ">
@@ -57,6 +60,9 @@
 											</label>
 										</div>
 									</div>
+								</div>
+								<div>
+									<textarea placeholder="Message"></textarea>
 								</div>
 								<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" value="Upload"
 								 name="submit">Envoyer</button>

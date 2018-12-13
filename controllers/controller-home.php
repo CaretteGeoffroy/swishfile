@@ -5,9 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
 require_once('models/model-upload.php');
-// require('vendor/phpmailer/phpmailer/src/Exception.php');
-// require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
-// require('vendor/phpmailer/phpmailer/src/SMTP.php');
+
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
@@ -23,16 +21,25 @@ $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); //
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {
 
+	
 	// Mail de l'envoyeur :
 	$senderMail = $_POST["sender-mail"];
 
 	// Tableau mail des receveurs :
 	$receiverMail = $_POST["receiver-mail"];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef7969fd9801d80b66bb8d460b733ab8a34a632f
 	// l.173 : Verifications des champs via Regex
 	if (checkFormSend($senderMail, $receiverMail)) {
 		// Message à l'UPLOAD
 		$message = $_POST["message"];
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef7969fd9801d80b66bb8d460b733ab8a34a632f
 
 		// Génère un nom de DOSSIER unique à chaques UPLOAD.
 		$uniqueFolderName = uniqid(rand(), true); 
@@ -47,8 +54,6 @@ if (isset($_POST["submit"])) {
 		// Récupére la taille total des fichiers UPLOAD
 		$totalSize = getTotalSize($currentArraySizeFile);
 		
-		// print_r($currentArrayNameFile);
-
 		// Récupère la taille maximal autorisé reçu via l'input hidden...
 		$maxSize = $_POST["MAX_FILE_SIZE"];
 
@@ -69,12 +74,19 @@ if (isset($_POST["submit"])) {
 				// Créer le DOSSIER unique à l'UPLOAD...
 				mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
 
+<<<<<<< HEAD
 			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
 			// insertSenderUpload($senderMail, $message);
 				// Récupère le nombre de fichier contenu dans l'envois..
 				$length = count($currentArrayNameFile);
+=======
+				// Récupère le nombre de fichier contenu dans l'envois..
+				$length = count($currentArrayNameFile);
+
+>>>>>>> ef7969fd9801d80b66bb8d460b733ab8a34a632f
 
 				// MODELS :  Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"... 
+
 
 				// Pour chaques fichiers temporaires...
 				for($i = 0; $i < $length; $i++) {
@@ -102,8 +114,11 @@ if (isset($_POST["submit"])) {
 					
 				}
 
-				// l. 119 : ENVOIS DU/DES MAILS
-				sendMailTo($senderMail, $receiverMail, $url); 
+				// Prépare l'URL de téléchargement...
+				$urlForDownload = makeUrlForDownload($uniqueFolderName);
+
+				// l. 119 : ENVOIS DU/DES MAILS avec l'URL...
+				sendMailTo($senderMail, $receiverMail, $urlForDownload, $message); 
 
 			} else {
 
@@ -129,7 +144,7 @@ function getTotalSize($array) {
 }
 
 // Fonction gérant l'envois des mails...
-function sendMailTo($sender, $receivers, $url) {
+function sendMailTo($sender, $receivers, $url, $message) {
 
 	global $twig;
 
@@ -164,7 +179,7 @@ function sendMailTo($sender, $receivers, $url) {
 	    //Content
 	    $mail->isHTML(true);                                        
 	    $mail->Subject = 'Une personne vous a envoyé des fichiers';
-	    $mail->Body    = $twig->render('mail.twig',array("url" => $url));
+	    $mail->Body    = $twig->render('mail.twig',array("url" => $url, "sender" => $sender, "message" => $message));
 	 
 	    $mail->send();
 	    // echo "Message envoyé !";
@@ -215,8 +230,18 @@ function checkFormSend($senderMail, $receiverMail) {
 
 }
 
-function makeUrlForDownload() {
-	
+
+/* Récupère l'URL actuel,
+supprime le controller home,
+ajoute le controller file + l'action download,
+réassemble en ajoutant la clée du dossier */
+function makeUrlForDownload($key) {
+	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	$actual_link = explode("home", $actual_link);
+	$actual_link = implode($actual_link);
+	$download_link = $actual_link. "file/download/". $key;
+
+	return $download_link;
 }
 
 ?>

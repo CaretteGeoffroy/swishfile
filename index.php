@@ -16,7 +16,7 @@ if (isset($_SERVER["REQUEST_URI"])) {
 		case 'dashboard':
 			require_once("controllers/controller-dashboard.php");
 			break;	
-		case 'file':
+		case 'download':
 			require_once("controllers/controller-download.php");
 			break;			
 		default:

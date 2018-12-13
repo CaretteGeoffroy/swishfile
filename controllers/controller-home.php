@@ -79,10 +79,10 @@ if (isset($_POST["submit"])) {
 				for($i = 0; $i < $length; $i++) {
 
 					// Créer un nom unique pour un fichier...
-					$nom = md5(uniqid(rand(), true)); 
+					$nameFile = md5(uniqid(rand(), true)); 
 
 					// Réassemble la chaine (nom du fichier) avec le nom unique du FICHIER...
-					$nom = "cloud/{$uniqueFolderName}/".$nom.".".$extension_upload[$i]; 
+					$nom = "cloud/{$uniqueFolderName}/".$nameFile.".".$extension_upload[$i]; 
 
 					// Déplace le FICHIER dans le DOSSIER
 					$resultat = move_uploaded_file($currentArrayTempNameFile[$i],$nom); 
@@ -93,7 +93,8 @@ if (isset($_POST["submit"])) {
 					$arrayFileInfos = array('name' =>   $currentArrayNameFile[$i],
 									   		'size' =>   $currentArraySizeFile[$i],
 									        'ext'  =>   $currentArrayTypeFile[$i],
-									        'key'  =>   $uniqueFolderName
+									        'folder_key'  =>   $uniqueFolderName,
+									        'file_key' => $nameFile
 					);
 					
 					// MODELS :  Insert les infos de CHAQUES FICHIER dans la table files.. 
@@ -226,7 +227,7 @@ function makeUrlForDownload($key) {
 	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$actual_link = explode("home", $actual_link);
 	$actual_link = implode($actual_link);
-	$download_link = $actual_link. "file/download/". $key;
+	$download_link = $actual_link. "download/list/". $key;
 
 	return $download_link;
 }

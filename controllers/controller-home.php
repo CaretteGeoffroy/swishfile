@@ -22,25 +22,17 @@ $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); //
 if (isset($_POST["submit"])) {
 
 	
+
 	// Mail de l'envoyeur :
 	$senderMail = $_POST["sender-mail"];
 
 	// Tableau mail des receveurs :
 	$receiverMail = $_POST["receiver-mail"];
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ef7969fd9801d80b66bb8d460b733ab8a34a632f
 	// l.173 : Verifications des champs via Regex
 	if (checkFormSend($senderMail, $receiverMail)) {
 		// Message à l'UPLOAD
 		$message = $_POST["message"];
-<<<<<<< HEAD
-=======
-
->>>>>>> ef7969fd9801d80b66bb8d460b733ab8a34a632f
-
 		// Génère un nom de DOSSIER unique à chaques UPLOAD.
 		$uniqueFolderName = uniqid(rand(), true); 
 
@@ -59,7 +51,7 @@ if (isset($_POST["submit"])) {
 
 		// Si la taille du fichier est inférieur à la taille max autorisé...
 		if ($totalSize < $maxSize) {
-
+			
 			// Pour chacuns des noms de fichiers...
 			foreach ($currentArrayNameFile as $element) {
 
@@ -70,20 +62,13 @@ if (isset($_POST["submit"])) {
 			// Si les extensions récupérées sont contenues dans le tableau des extensions autorisées.
 			if ( array_intersect($extension_upload,$extensions_valides) ) {
 
-
 				// Créer le DOSSIER unique à l'UPLOAD...
 				mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
 
-<<<<<<< HEAD
 			// Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"...
 			// insertSenderUpload($senderMail, $message);
 				// Récupère le nombre de fichier contenu dans l'envois..
 				$length = count($currentArrayNameFile);
-=======
-				// Récupère le nombre de fichier contenu dans l'envois..
-				$length = count($currentArrayNameFile);
-
->>>>>>> ef7969fd9801d80b66bb8d460b733ab8a34a632f
 
 				// MODELS :  Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"... 
 
@@ -145,11 +130,12 @@ function getTotalSize($array) {
 
 // Fonction gérant l'envois des mails...
 function sendMailTo($sender, $receivers, $url, $message) {
-
+	
 	global $twig;
 
 	$mail = new PHPMailer(true); 
 
+	
 	try {
 
 	    //Server settings

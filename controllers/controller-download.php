@@ -1,40 +1,43 @@
 <?php
 require_once('vendor/autoload.php');
+require_once('models/model-download.php');
 
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
 switch ($action) {
-    case 'show':
-       show();
+    
+    case 'list':
+        file_list();
         break;
-    case 'download':
-        download();
+    case 'file':
+        download_file();
         break;
-    case 'folder':
-        folder();
+    case 'zip':
+        download_zip();
         break;
     default:
-        show();
+        file_list();
         break;
 }
 
-function show(){
-    global $twig;
-    echo $twig->render("download.twig");
-}
 
 
-function folder(){
-    global $id;
+
+function file_list(){
+    global $id,$lien, $fileInfo;
     $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
-    $path = "/transfer-system/file/download";
+    $path = "/transfer-system/download";
     echo '<ul>'; 
     if($dossier = opendir($rep)){ 
         while( ($fichier = readdir($dossier)) !== false){ 
             if($fichier != '.' && $fichier != '..' ){ 
-                // $fileInfo = pathinfo($fichier);
-                echo '<li><a href="' . $path . '/' .$fichier. '">' . $fichier . '</a></li>'; 
+
+                $fileInfo = pathinfo($fichier);
+                $lien = $fileInfo["filename"];
+                $key = getKey($lien);
+ 
+                echo '<li><a href="' . $path . '/' .$key. '">' . $fichier . '</a></li>'; 
             } 
         } 
         echo '</ul><br/>'; 
@@ -45,13 +48,13 @@ function folder(){
 }
 
 
-function download(){
+function download_file(){
     global $id;
 
 
-    // $lien = $fileInfo["filename"];
+    $lien = $fileInfo["filename"];
 
-    // $file_key = getKey($lien);
+    $file_key = getKey($lien);
 
     $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";
       echo $file;

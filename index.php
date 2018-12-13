@@ -1,5 +1,6 @@
 <?php
 
+
 if (isset($_SERVER["REQUEST_URI"])) {
 	$requete = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
 
@@ -24,6 +25,7 @@ if (isset($_SERVER["REQUEST_URI"])) {
 		default:
 			require_once("controllers/404.twig");
 			break;
+
 	}
 }
 

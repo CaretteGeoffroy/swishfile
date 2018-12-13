@@ -6,6 +6,8 @@ if (isset($_SERVER["REQUEST_URI"])) {
 	$controller = (count($requete) === 1)? "home":$requete[1];
 	$action = (count($requete) < 3)? "log": $requete[2];
 	$id = (count($requete) < 4)? 0 : $requete[3];
+	$file = (count($requete) < 5)? 0 : $requete[4];
+
 	switch ($controller) {
 		case 'home':
 			require_once("controllers/controller-home.php");

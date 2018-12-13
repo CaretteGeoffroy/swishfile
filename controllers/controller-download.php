@@ -25,21 +25,19 @@ switch ($action) {
 
 
 function file_list(){
-    global $id,$lien;
+    global $id;
     $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
-    $path = "/transfer-system/download/file/$d";
+    $d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
+    $path = "/transfer-system/download/file/$d";
     echo '<ul>'; 
+    
+   
     if($dossier = opendir($rep)){ 
         while( ($fichier = readdir($dossier)) !== false){ 
             if($fichier != '.' && $fichier != '..' ){ 
-
-                $fileInfo = pathinfo($fichier);
-                $lien = $fileInfo["filename"];
-                $name = implode(getFile_name($lien));
-                // echo $key;
-                // echo $lien;
-                echo '<li><a href="'.$path.'/'.$lien.'">'.$name.'</a></li>'; 
+                $name = implode(getFile_name($fichier));
+                echo '<li><a href="'.$path.'/'.$fichier.'">'.$name.'</a></li>'; 
             } 
         } 
         echo '</ul><br/>'; 
@@ -51,11 +49,9 @@ function file_list(){
 
 
 function download_file(){
-    global $id, $file;
+    global $id,$file;
 
-
-
-    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id'/'.$file";
+    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id/$file";
       echo $file;
     if (file_exists($file)) {
         header('Content-Description: File Transfer');
@@ -72,15 +68,3 @@ function download_file(){
         exit;
     }
 } 
-
-// $file = "http://localhost/img/1.jpg";
-    
-// // Define headers
-// header("Cache-Control: public");
-// header("Content-Description: File Transfer");
-// header("Content-Disposition: attachment; filename=$file");
-// header("Content-Type: application/png");
-// header("Content-Transfer-Encoding: binary");
-
-// // Read the file
-// readfile($file);

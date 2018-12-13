@@ -31,7 +31,6 @@ function showlog(){
     }
 }
 
-
 function verif(){
 
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){

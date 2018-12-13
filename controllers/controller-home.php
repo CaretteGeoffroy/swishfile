@@ -6,7 +6,6 @@ use PHPMailer\PHPMailer\Exception;
 require_once('vendor/autoload.php');
 require_once('models/model-upload.php');
 
-
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
@@ -14,14 +13,12 @@ $twig = new Twig_Environment($loader);
 // RENDU DE LA PAGE PRINCIPALE
 echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
-
 // CONFIG
 $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); // Extensions autorisées.
 
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {
 
-	
 	// Mail de l'envoyeur :
 	$senderMail = $_POST["sender-mail"];
 
@@ -33,7 +30,6 @@ if (isset($_POST["submit"])) {
 	if (checkFormSend($senderMail, $receiverMail)) {
 		// Message à l'UPLOAD
 		$message = $_POST["message"];
-
 
 		// Génère un nom de DOSSIER unique à chaques UPLOAD.
 		$uniqueFolderName = uniqid(rand(), true); 
@@ -71,9 +67,7 @@ if (isset($_POST["submit"])) {
 				// Récupère le nombre de fichier contenu dans l'envois..
 				$length = count($currentArrayNameFile);
 
-
 				// MODELS :  Insert le mail de l'envoyeur et le message qu'il a écrit dans la table "user_upload"... 
-
 
 				// Pour chaques fichiers temporaires...
 				for($i = 0; $i < $length; $i++) {
@@ -217,7 +211,6 @@ function checkFormSend($senderMail, $receiverMail) {
 	}
 
 }
-
 
 /* Récupère l'URL actuel,
 supprime le controller home,

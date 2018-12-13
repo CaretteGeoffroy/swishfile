@@ -21,9 +21,6 @@ switch ($action) {
         break;
 }
 
-
-
-
 function file_list(){
     global $id,$lien;
     $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
@@ -52,10 +49,9 @@ function file_list(){
 function download_file(){
     global $id, $fichier;
 
-
-
     $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id'/'.$fichier";
-      echo $file;
+    echo $file;
+
     if (file_exists($file)) {
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');

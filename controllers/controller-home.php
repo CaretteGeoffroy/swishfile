@@ -73,13 +73,13 @@ if (isset($_POST["submit"])) {
 				for($i = 0; $i < $length; $i++) {
 
 					// Créer un nom unique pour un fichier...
-					$nameFile = md5(uniqid(rand(), true)); 
+					$nameFile = md5(uniqid(rand(), true)). "." .$extension_upload[$i]; 
 
-					// Réassemble la chaine (nom du fichier) avec le nom unique du FICHIER...
-					$nom = "cloud/{$uniqueFolderName}/".$nameFile.".".$extension_upload[$i]; 
+					// Réassemble la chaine (nom du fichier) avec le nom unique du FICHIER et prépare le chemin de destination du fichier
+					$path = "cloud/{$uniqueFolderName}/".$nameFile;
 
 					// Déplace le FICHIER dans le DOSSIER
-					$resultat = move_uploaded_file($currentArrayTempNameFile[$i],$nom); 
+					$resultat = move_uploaded_file($currentArrayTempNameFile[$i],$path); 
 
 					// Si le fichier est correctement déplacer...
 					// if ($resultat) echo "Transfert réussi";

@@ -25,9 +25,9 @@ switch ($action) {
 
 
 function file_list(){
-    global $id,$lien, $fileInfo;
+    global $id,$lien;
     $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
-    $path = "/transfer-system/download";
+    $path = "/transfer-system/download/file";
     echo '<ul>'; 
     if($dossier = opendir($rep)){ 
         while( ($fichier = readdir($dossier)) !== false){ 
@@ -35,9 +35,10 @@ function file_list(){
 
                 $fileInfo = pathinfo($fichier);
                 $lien = $fileInfo["filename"];
-                $key = getKey($lien);
- 
-                echo '<li><a href="' . $path . '/' .$key. '">' . $fichier . '</a></li>'; 
+                $name = implode(getFile_name($lien));
+                // echo $key;
+                // echo $lien;
+                echo '<li><a href="' . $path . '/' .$lien. '">' . $name . '</a></li>'; 
             } 
         } 
         echo '</ul><br/>'; 
@@ -49,14 +50,11 @@ function file_list(){
 
 
 function download_file(){
-    global $id;
+    global $id, $fichier;
 
 
-    $lien = $fileInfo["filename"];
 
-    $file_key = getKey($lien);
-
-    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";
+    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id'/'.$fichier";
       echo $file;
     if (file_exists($file)) {
         header('Content-Description: File Transfer');

@@ -17,4 +17,18 @@ function getIdentifier($user, $password) {
     return $res;
 }
 
+function bdd_filmGenre($id = 0, $order) {
+    global $bdd;
+
+    $request = 
+    
+    $request .= ($order === 'ASC')? " group by f.id
+    order by f.annee_de_sortie ASC" : " group by f.id
+    order by f.annee_de_sortie DESC";
+ 
+    $response = $bdd->prepare( $request );
+    $response->bindParam(':id', $id, PDO::PARAM_INT);
+    $response->execute();
+    return $response->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>

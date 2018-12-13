@@ -21,6 +21,7 @@ $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'txt'); // Extensio
 if (isset($_POST["submit"])) {
 
 	
+
 	// Mail de l'envoyeur :
 	$senderMail = $_POST["sender-mail"];
 
@@ -31,7 +32,7 @@ if (isset($_POST["submit"])) {
 	if (checkFormSend($senderMail, $receiverMail)) {
 		// Message à l'UPLOAD
 		$message = $_POST["message"];
-
+		
 		// Génère un nom de DOSSIER unique à chaques UPLOAD.
 		$uniqueFolderName = uniqid(rand(), true); 
 
@@ -50,7 +51,7 @@ if (isset($_POST["submit"])) {
 
 		// Si la taille du fichier est inférieur à la taille max autorisé...
 		if ($totalSize < $maxSize) {
-
+			
 			// Pour chacuns des noms de fichiers...
 			foreach ($currentArrayNameFile as $element) {
 
@@ -60,7 +61,6 @@ if (isset($_POST["submit"])) {
 
 			// Si les extensions récupérées sont contenues dans le tableau des extensions autorisées.
 			if ( array_intersect($extension_upload,$extensions_valides) ) {
-
 
 				// Créer le DOSSIER unique à l'UPLOAD...
 				mkdir("cloud/{$uniqueFolderName}/", 0777, true); 
@@ -127,11 +127,12 @@ function getTotalSize($array) {
 
 // Fonction gérant l'envois des mails...
 function sendMailTo($sender, $receivers, $url, $message) {
-
+	
 	global $twig;
 
 	$mail = new PHPMailer(true); 
 
+	
 	try {
 
 	    //Server settings

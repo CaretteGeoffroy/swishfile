@@ -2,9 +2,9 @@
 -- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Client :  localhost:3306
--- Généré le :  Mar 11 Décembre 2018 à 20:50
--- Version du serveur :  10.3.11-MariaDB-1:10.3.11+maria~bionic
+-- Client :  localhost
+-- Généré le :  Jeu 13 Décembre 2018 à 10:36
+-- Version du serveur :  10.3.11-MariaDB-1:10.3.11+maria~bionic-log
 -- Version de PHP :  7.2.10-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -39,12 +39,20 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `files` (
-  `id` int(11) NOT NULL,
+  `id` int(4) NOT NULL,
   `file_ext` varchar(255) NOT NULL,
+  `folder_key` varchar(255) NOT NULL,
   `file_key` varchar(255) NOT NULL,
   `file_name` varchar(255) NOT NULL,
   `file_size` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Contenu de la table `files`
+--
+
+INSERT INTO `files` (`id`, `file_ext`, `folder_key`, `file_key`, `file_name`, `file_size`) VALUES
+(1, 'image/jpeg', '684826955c1235bc48da36.91186225', 'e58f9ec8f54f0cd86d011b097a91219f', 'la_haut.jpg', '88218');
 
 -- --------------------------------------------------------
 
@@ -55,17 +63,6 @@ CREATE TABLE `files` (
 CREATE TABLE `files_downloaded` (
   `files_id` int(4) NOT NULL,
   `user_download_id` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `files_uploaded`
---
-
-CREATE TABLE `files_uploaded` (
-  `files_id` int(4) NOT NULL,
-  `user_upload_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -100,14 +97,6 @@ CREATE TABLE `user_upload` (
   `upload_date` datetime NOT NULL DEFAULT current_timestamp(),
   `message` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Contenu de la table `user_upload`
---
-
-INSERT INTO `user_upload` (`id`, `mail_sender`, `upload_date`, `message`) VALUES
-(1, 'valerie.h@codeur.online', '2018-12-10 12:40:00', ''),
-(2, 'abdelkrim.n@codeur.online', '2018-12-10 21:44:12', '');
 
 --
 -- Index pour les tables exportées
@@ -150,7 +139,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT pour la table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `user_download`
 --
@@ -160,7 +149,8 @@ ALTER TABLE `user_download`
 -- AUTO_INCREMENT pour la table `user_upload`
 --
 ALTER TABLE `user_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

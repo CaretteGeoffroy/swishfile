@@ -11,21 +11,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet"> 
-	<link rel="stylesheet" href="style.css"/>
+	<link rel="stylesheet" href="style/style.css"/>
 	<title>Transfert de fichier</title>
 </head>
 
 <body>
 	<section class="container-fluid" id="form">
-			<h1 class="text-center mt-5 mb-5">Swishfile </h1>
-			<div id="background-cycler" class="background-cycler">
-					<img id="imgPrev" />
-					<img id="imgNext" />
-				</div>
-
-		
-		
-			<div class="row">
+		<div class="row d-flex justify-content-end mt-2 mr-4">
+			<img src="media/swish_logo.svg" alt="logo" class="logo">
+			<h1 class="text-center mt-5 mb-5"></h1>
+		</div>
+		<div class="row">
 				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-center">
 				</div>
 				<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center justify-content-center">
@@ -77,7 +73,7 @@
 									</div>
 								</div>
 								<div>
-									<textarea class="txtarea mt-3" placeholder="Message"></textarea>
+									<textarea class="txtarea mt-3" name="message" placeholder="Message"></textarea>
 								</div>
 								<button class="btn btn-outline-primary btn-rounded my-4 btn-block waves-effect z-depth-0" type="submit" value="Upload"
 								 name="submit">Envoyer</button>
@@ -102,7 +98,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	 crossorigin="anonymous"></script>
 	<script src="//code.jquery.com/jquery.min.js"></script>
-	<script src="/transfer-system/slideshow.js"></script>
+	<script src="/slideshow.js"></script>
 
 </body>
 </html>

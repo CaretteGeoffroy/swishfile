@@ -18,6 +18,9 @@
 				break;
 			case 'admin':
 				require_once("controllers/controller-admin.php");
+				break;
+			case 'dashboard':
+				require_once("controllers/controller-dashboard.php");
 				break;			
 			default:
 				require_once("controllers/404.twig");

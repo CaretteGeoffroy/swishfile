@@ -22,8 +22,6 @@ switch ($action) {
 }
 
 
-
-
 function file_list(){
     global $id;
     $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
@@ -32,7 +30,6 @@ function file_list(){
     $path = "/transfer-system/download/file/$d";
     echo '<ul>'; 
     
-   
     if($dossier = opendir($rep)){ 
         while( ($fichier = readdir($dossier)) !== false){ 
             if($fichier != '.' && $fichier != '..' ){ 
@@ -68,3 +65,28 @@ function download_file(){
         exit;
     }
 } 
+
+function download_zip() {
+
+    $dossier = "./cloud/566642055c125ea005c911.86065219";
+
+    $zip = new ZipArchive();
+    $filename = "test112.zip";
+
+    if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+        exit("Impossible d'ouvrir le fichier <$filename>\n");
+    } else {
+        if($dossier = opendir($dossier)){ 
+            while( ($fichier = readdir($dossier)) !== false){ 
+                if($fichier != '.' && $fichier != '..' ){
+                    $zip->addFile(realpath($fichier)); 
+                }        
+            }       
+        }
+
+        closedir($dossier);
+    }
+    
+    $zip->close();
+
+}

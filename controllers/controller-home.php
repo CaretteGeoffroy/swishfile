@@ -14,7 +14,7 @@ $twig = new Twig_Environment($loader);
 echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
 // CONFIG
-$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc'); // Extensions autorisées.
+$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
 
 // Si on reçoit le formulaire...
 if (isset($_POST["submit"])) {

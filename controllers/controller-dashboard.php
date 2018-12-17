@@ -1,7 +1,7 @@
 <?php
 
 require_once('vendor/autoload.php');
-require_once('models/model-admin.php');
+require_once('models/model-dashboard.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');

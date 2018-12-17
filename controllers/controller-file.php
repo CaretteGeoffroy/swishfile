@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
-require_once('models/model-upload.php');
+require_once('models/model-file.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');

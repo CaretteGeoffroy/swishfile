@@ -25,7 +25,7 @@ switch ($action) {
 
 
 function file_list(){
-    global $id;
+    global $id, $twig, $base_url;
     $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
     $d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
@@ -45,6 +45,8 @@ function file_list(){
     }else{
         echo 'Une erreur est survenue'; 
     }
+
+    echo $twig->render('download.twig',array("base_url" => $base_url));
 }
 
 
@@ -68,3 +70,43 @@ function download_file(){
         exit;
     }
 } 
+
+function download_zip(){
+
+    $zip = new ZipArchive();
+    if($zip->open("swish.zip", ZipArchive::CREATE)){
+
+        $zip->addFile("img/1.jpg");
+        $zip->addFile("img/2.jpg");
+        $zip->close();
+        // header('Content-Description: File Transfer');
+        // header('Content-Type: application/octet-stream');
+        // header('Content-Disposition: attachment; filename='.basename("swish.zip"));
+        // // header('Content-Transfer-Encoding: binary');
+        // header('Expires: 0');
+        // header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        // header('Pragma: public');
+        // header('Content-Length: ' . filesize("swish.zip"));
+        // ob_clean();
+        // flush();
+
+        // readfile("swish.zip");
+
+
+
+
+        $fichier = "swish.zip";
+     
+        // téléchargement du fichier 
+        header('Content-disposition: attachment; filename='.$fichier); 
+        header('Content-Type: application/x-zip'); 
+        header('Content-Transfer-Encoding: Binary');  
+        header('Content-Length: '.filesize($fichier)); 
+        header('Pragma: no-cache'); 
+        header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0'); 
+        header('Expires: 0'); 
+        readfile($fichier);
+        exit;
+    }
+
+}

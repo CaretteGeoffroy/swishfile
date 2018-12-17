@@ -12,13 +12,10 @@ if (isset($_SERVER["REQUEST_URI"])) {
 		case 'home':
 			require_once("controllers/controller-home.php");
 			break;
-		case 'admin':
-			require_once("controllers/controller-admin.php");
-			break;
 		case 'dashboard':
 			require_once("controllers/controller-dashboard.php");
 			break;	
-		case 'download':
+		case 'file':
 			require_once("controllers/controller-download.php");
 			break;			
 		default:

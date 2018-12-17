@@ -142,24 +142,7 @@ function upload() {
 function  download($idFolder, $idFile) {
 
 	file_list($idFolder);
-
-	// switch ($action) {
-    
-	//     case 'list':
-	//         file_list();
-	//         break;
-	//     case 'file':
-	//         download_file();
-	//         break;
-	//     case 'zip':
-	//         download_zip();
-	//         break;
-	//     default:
-	//         file_list();
-	//         break;
-	// }
-
-
+	download_file($idFolder, $idFile);
 
 
 
@@ -195,7 +178,7 @@ function file_list($idFolder){
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
-	$path = "/transfer-system/download/file/$d";
+	$path = "/transfer-system/file/download/$d";
 	// echo '<ul>'; 
 	
 	if($dossier = opendir($rep)){ 

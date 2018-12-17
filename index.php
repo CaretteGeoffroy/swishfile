@@ -1,16 +1,11 @@
 <?php
-
-// require_once("models/connect_bdd.php");
-// require_once("models/film_model.php");
-
-	if (isset($_SERVER["REQUEST_URI"])) {
-
+if (isset($_SERVER["REQUEST_URI"])) {
+	$requete = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
 	$controller = (count($requete) === 1)? "file":$requete[1];
 	$action = (count($requete) < 3)? "": $requete[2];
 	$id = (count($requete) < 4)? 0 : $requete[3];
 	// $idDossier = (count($requete) < 5)? 0 : $requete[4];
 	
-
 	switch ($controller) {
 		case 'dashboard':
 			require_once("controllers/controller-dashboard.php");
@@ -21,9 +16,6 @@
 		default:
 			echo "Error 404";
 			break;
-
-		}
 	}
-
-
+}
 ?>

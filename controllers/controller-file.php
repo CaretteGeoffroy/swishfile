@@ -10,13 +10,8 @@ require_once('models/model-upload.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-
-
-
 upload(); // UPLOAD UN FICHIER
 download(); // DOWNLOAD UN FICHIER
-
-
 
 // ACTION UPLOAD FILE
 function upload() {

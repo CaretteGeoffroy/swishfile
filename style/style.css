@@ -1,0 +1,74 @@
+@import url(../node_modules/bootstrap/dist/css/bootstrap.css);
+@font-face {
+  font-family: 'lato';
+  src: url("../fonts/lato/Lato-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/lato/Lato-Regular.woff") format("woff"), url("../fonts/lato/Lato-Regular.ttf") format("truetype"), url("../fonts/lato/Lato-Regular.svg") format("svg");
+  /* Legacy iOS */ }
+body {
+  background-color: #13252D; }
+  body main .left_content {
+    min-height: 50vh;
+    background-color: #E9654C;
+    box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px; }
+  body main .right_content {
+    min-height: 50vh;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px; }
+    body main .right_content input {
+      border-right: none;
+      border-left: none;
+      border-top: none;
+      border-bottom-color: #E9654C; }
+  body main form ::-webkit-input-placeholder {
+    text-align: center;
+    color: #13252D;
+    font-weight: bold;
+    font-family: 'lato' !important; }
+  body main form .input_message {
+    height: 35%; }
+  body main form .hidden_file_input {
+    display: none; }
+  body main form .file_content {
+    min-height: 30vh; }
+    body main form .file_content i {
+      color: #A34735;
+      font-size: 12rem;
+      margin-top: 12%; }
+  body main form .info_style {
+    font-family: 'lato';
+    font-size: 1rem;
+    color: white; }
+  body main form i {
+    color: #4AC6D4;
+    font-size: 2rem; }
+  body main form label {
+    font-family: 'lato';
+    font-size: 1.5rem;
+    color: white; }
+    body main form label img {
+      width: 15%; }
+      body main form label img:hover {
+        cursor: pointer; }
+    body main form label span {
+      margin-top: -5px !important;
+      font-family: 'lato';
+      font-style: italic;
+      font-size: 1rem;
+      color: white; }
+  body main form textarea {
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-bottom-color: #E9654C;
+    border-width: 2px;
+    resize: none; }
+  body main form button {
+    background-color: #13252D;
+    width: 30%;
+    font-family: 'lato' !important;
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    color: white; }
+
+/*# sourceMappingURL=style.css.map */

@@ -4,23 +4,32 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
-require_once('models/model-upload.php');
+require_once('models/model-file.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-upload(); // UPLOAD UN FICHIER
-download(); // DOWNLOAD UN FICHIER
+global $action;
+global $id;
+
+switch ($action) {
+	case 'upload':
+		upload(); // UPLOAD UN FICHIER
+		break;
+	case 'download':
+		download($id); // DOWNLOAD UN FICHIER
+		break;
+	default:
+		echo $twig->render("file/index.twig"); 
+		break;
+}
 
 // ACTION UPLOAD FILE
 function upload() {
-
+	
 	global $twig;
-
-	// RENDU DE LA PAGE PRINCIPALE
-	echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
-
+	
 	// CONFIG
 	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
 
@@ -32,7 +41,6 @@ function upload() {
 
 		// Tableau mail des receveurs :
 		$receiverMail = $_POST["receiver-mail"];
-
 
 		// l.173 : Verifications des champs via Regex
 		if (checkFormSend($senderMail, $receiverMail)) {
@@ -106,8 +114,13 @@ function upload() {
 					// Prépare l'URL de téléchargement...
 					$urlForDownload = makeUrlForDownload($uniqueFolderName);
 
+					// Renseigne la table user_upload
+					insertSenderUpload($senderMail, $message);
+
 					// l. 119 : ENVOIS DU/DES MAILS avec l'URL...
 					sendMailTo($senderMail, $receiverMail, $urlForDownload, $message); 
+
+					echo $twig->render("file/upload.html.twig", array('url' => $urlForDownload)); // RENDER DE LA PAGE UPLOAD.
 
 				} else {
 
@@ -127,7 +140,7 @@ function upload() {
 
 
 // ACTION : DOWNLOAD FILE
-function  download() {
+function  download($id) {
 
 	switch ($action) {
     

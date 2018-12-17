@@ -4,38 +4,33 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once('vendor/autoload.php');
-require_once('models/model-upload.php');
+require_once('models/model-file.php');
 
 // TWIG LOADER
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-// upload(); // UPLOAD UN FICHIER
-// download(); // DOWNLOAD UN FICHIER
-
 global $action;
+global $id;
 
 switch ($action) {
 	case 'upload':
-		upload();
+		upload(); // UPLOAD UN FICHIER
 		break;
-	// case 'download':
-	// 	download();
-	// 	break;
+	case 'download':
+		download($id); // DOWNLOAD UN FICHIER
+		break;
 	default:
-		echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
+		echo $twig->render("file/index.twig"); // RENDER DE LA PAGE PRINCIPAL.
 		break;
 }
 
-
-
 // ACTION UPLOAD FILE
 function upload() {
-
+	
 	global $twig;
-
-	// RENDU DE LA PAGE PRINCIPALE
-	echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
+	
+	echo $twig->render("file/upload.html.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
 	// CONFIG
 	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
@@ -143,10 +138,11 @@ function upload() {
 
 
 // ACTION : DOWNLOAD FILE
-function  download() {
+function  download($id) {
+
 	global $action;
+
 	switch ($action) {
-    
 	    case 'download':
 	        file_list();
 	        break;
@@ -167,7 +163,7 @@ function  download() {
 	    $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
 	    $d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
-	    $path = "/transfer-system/download/file/$d";
+	    $path = "/transfer-system/file/download/$d";
 	    echo '<ul>'; 
 	    
 	    if($dossier = opendir($rep)){ 

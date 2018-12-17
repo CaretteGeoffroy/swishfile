@@ -11,14 +11,14 @@ if (isset($_SERVER["REQUEST_URI"])) {
 	
 
 	switch ($controller) {
-		case 'file':
-		require_once("controllers/controller-file.php");
-		break;
 		case 'dashboard':
 			require_once("controllers/controller-dashboard.php");
-			break;		
+			break;	
+		case 'file':
+			require_once("controllers/controller-file.php");
+			break;
 		default:
-			echo "404";
+			echo "Error 404";
 			break;
 	}
 }

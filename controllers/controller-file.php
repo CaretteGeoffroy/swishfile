@@ -141,6 +141,8 @@ function upload() {
 // ACTION : DOWNLOAD FILE
 function  download($idFolder, $idFile) {
 
+	file_list($idFolder);
+
 	// switch ($action) {
     
 	//     case 'list':
@@ -159,56 +161,7 @@ function  download($idFolder, $idFile) {
 
 
 
-	function file_list($idFolder){
-	    
-	    $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
-	    $d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
-	    $path = "/transfer-system/download/file/$d";
-	    // echo '<ul>'; 
-	    
-	    if($dossier = opendir($rep)){ 
-	        while( ($fichier = readdir($dossier)) !== false){ 
-	            if($fichier != '.' && $fichier != '..' ){ 
-	                $name = implode(getFile_name($fichier));
-					// echo '<li><a href="'.$path.'/'.$fichier.'">'.$name.'</a></li>'; 
-					$array_path[] = $path; 
-					$array_fichier[] = $fichier; 
-					$array_name[] = $name; 
-	            } 
-	        } 
-	        // echo '</ul><br/>'; 
-			closedir($dossier); 
-			echo $twig->render('download.html.twig', array("array_path" => $array_path,
-														   "array_fichier" => $array_fichier,
-														   "array_name" => $array_name));
-
-	    }else{
-	        echo 'Une erreur est survenue'; 
-	    }
-	}
-
-
-	function download_file($idFolder, $idFile){
-	    
-
-	    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-	      echo $file;
-	    if (file_exists($file)) {
-	        header('Content-Description: File Transfer');
-	        header('Content-Type: application/octet-stream');
-	        header('Content-Disposition: attachment; filename='.basename($file));
-	        header('Content-Transfer-Encoding: binary');
-	        header('Expires: 0');
-	        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	        header('Pragma: public');
-	        header('Content-Length: ' . filesize($file));
-	        ob_clean();
-	        flush();
-	        readfile($file);
-	        exit;
-	    }
-	} 
 
 	// function download_zip() {
 
@@ -235,6 +188,58 @@ function  download($idFolder, $idFile) {
 
 	// }
 }
+
+function file_list($idFolder){
+	 
+	global $twig;	
+	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
+	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
+
+	$path = "/transfer-system/download/file/$d";
+	// echo '<ul>'; 
+	
+	if($dossier = opendir($rep)){ 
+		while( ($fichier = readdir($dossier)) !== false){ 
+			if($fichier != '.' && $fichier != '..' ){ 
+				$name = implode(getFile_name($fichier));
+				// echo '<li><a href="'.$path.'/'.$fichier.'">'.$name.'</a></li>'; 
+				$array_path[] = $path; 
+				$array_fichier[] = $fichier; 
+				$array_name[] = $name; 
+			} 
+		} 
+		// echo '</ul><br/>'; 
+		closedir($dossier); 
+		echo $twig->render('file/download.html.twig', array("array_path" => $array_path,
+													   "array_fichier" => $array_fichier,
+													   "array_name" => $array_name));
+
+	}else{
+		echo 'Une erreur est survenue'; 
+	}
+}
+
+
+function download_file($idFolder, $idFile){
+	
+
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
+	  echo $file;
+	if (file_exists($file)) {
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.basename($file));
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($file));
+		ob_clean();
+		flush();
+		readfile($file);
+		exit;
+	}
+} 
 
 // Calcul la taille total de tout les fichiers...
 function getTotalSize($array) {

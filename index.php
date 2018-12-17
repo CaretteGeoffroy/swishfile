@@ -17,5 +17,4 @@ if (isset($_SERVER["REQUEST_URI"])) {
 			echo "Error 404";
 			break;
 	}
-}
 ?>

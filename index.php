@@ -6,8 +6,8 @@ if (isset($_SERVER["REQUEST_URI"])) {
 
 	$controller = (count($requete) === 1)? "file":$requete[1];
 	$action = (count($requete) < 3)? "": $requete[2];
-	$id = (count($requete) < 4)? 0 : $requete[3];
-	$idDossier = (count($requete) < 5)? 0 : $requete[4];
+	$idFolder = (count($requete) < 4)? 0 : $requete[3];
+	$idFile = (count($requete) < 5)? 0 : $requete[4];
 	
 
 	switch ($controller) {

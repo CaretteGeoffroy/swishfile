@@ -1,7 +1,19 @@
-<?php 
+<?php
 
+require_once('vendor/autoload.php');
 require_once('models/connect-bdd.php');
 
+function getFile_name($fichier) {
+
+    global $bdd;
+
+    $requete = $bdd->prepare('SELECT files.file_name FROM files WHERE files.file_key = :fichier');
+    $requete->bindValue(':fichier', $fichier, PDO::PARAM_STR);
+    $data = $requete->execute();
+    $resultat = $requete->fetch(PDO::FETCH_ASSOC);
+
+    return $resultat;
+}
 
 function insertFileUpload($arrayDatas) {
 
@@ -18,13 +30,12 @@ function insertFileUpload($arrayDatas) {
 	$response->bindParam(':size', $arrayDatas["size"], PDO::PARAM_STR);
 	$response->bindParam(':ext', $arrayDatas["ext"], PDO::PARAM_STR);
 	$response->bindParam(':folder_key', $arrayDatas["folder_key"], PDO::PARAM_STR);
-	$response->bindParam(':file_key', $arrayDatas["file_key"], PDO::PARAM_STR);
-
+    $response->bindParam(':file_key', $arrayDatas["file_key"], PDO::PARAM_STR);
+    
 	// Exécute la requête...
     $response->execute();
     
 }
-
 
 function insertSenderUpload($sender, $message) {
 
@@ -42,18 +53,6 @@ function insertSenderUpload($sender, $message) {
 
 	// Exécute la requête...
     $response->execute();
-}
-
-function getFile_name($fichier) {
-
-    global $bdd;
-
-    $requete = $bdd->prepare('SELECT files.file_name FROM files WHERE files.file_key = :fichier');
-    $requete->bindValue(':fichier', $fichier, PDO::PARAM_STR);
-    $data = $requete->execute();
-    $resultat = $requete->fetch(PDO::FETCH_ASSOC);
-
-    return $resultat;
 }
 
 ?>

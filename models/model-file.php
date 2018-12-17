@@ -55,7 +55,4 @@ function insertSenderUpload($sender, $message) {
     $response->execute();
 }
 
-
-
-
 ?>

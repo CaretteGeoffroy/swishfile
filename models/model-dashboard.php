@@ -1,7 +1,5 @@
 <?php
-require_once('vendor/autoload.php');
 require_once('models/connect-bdd.php');
-
 
 
 function getIdentifier($user, $password) {
@@ -15,17 +13,5 @@ function getIdentifier($user, $password) {
     $res = $req->fetch(PDO::FETCH_ASSOC);
 
     return $res;
-}
-
-function bdd_($id = 0, $order) {
-    global $bdd;
-
-    $request = 
-    
- 
-    $response = $bdd->prepare( $request );
-    $response->bindParam(':id', $id, PDO::PARAM_INT);
-    $response->execute();
-    return $response->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>

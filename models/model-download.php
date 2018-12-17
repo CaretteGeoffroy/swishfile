@@ -5,19 +5,22 @@ require_once('models/connect-bdd.php');
 
 
 
-function getFile_name($fichier) {
+function insertReceiverDownload($receiver) {
 
-    global $bdd;
+	global $bdd;
 
-    $requete = $bdd->prepare('SELECT files.file_name FROM files WHERE files.file_key = :fichier');
-    $requete->bindValue(':fichier', $fichier, PDO::PARAM_STR);
-    $data = $requete->execute();
-    $resultat = $requete->fetch(PDO::FETCH_ASSOC);
+	$sql = "INSERT INTO `user_download`(`mail_receiver`) 
+			VALUES (:receiver)";
 
-    return $resultat;
+	// Prépare la requête pour éviter les injections SQL...
+	$response = $bdd->prepare( $sql );		
+
+	// Bind les paramètres dans la requêtes...
+	$response->bindParam(':receiver', $receiver, PDO::PARAM_STR);
+
+	// Exécute la requête...
+    $response->execute();
 }
-
-
 
 
 

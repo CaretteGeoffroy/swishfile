@@ -10,15 +10,14 @@ require_once('models/model-file.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-global $action;
-global $id;
+global $action, $idFolder, $idFile;
 
 switch ($action) {
 	case 'upload':
 		upload(); // UPLOAD UN FICHIER
 		break;
 	case 'download':
-		download($id); // DOWNLOAD UN FICHIER
+		download($idFolder, $idFile); // DOWNLOAD UN FICHIER
 		break;
 	default:
 		echo $twig->render("file/index.twig"); 
@@ -140,52 +139,60 @@ function upload() {
 
 
 // ACTION : DOWNLOAD FILE
-function  download($id) {
+function  download($idFolder, $idFile) {
 
-	switch ($action) {
+	// switch ($action) {
     
-	    case 'list':
-	        file_list();
-	        break;
-	    case 'file':
-	        download_file();
-	        break;
-	    case 'zip':
-	        download_zip();
-	        break;
-	    default:
-	        file_list();
-	        break;
-	}
+	//     case 'list':
+	//         file_list();
+	//         break;
+	//     case 'file':
+	//         download_file();
+	//         break;
+	//     case 'zip':
+	//         download_zip();
+	//         break;
+	//     default:
+	//         file_list();
+	//         break;
+	// }
 
 
-	function file_list(){
-	    global $id;
-	    $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id";//Adresse du dossier
+
+	function file_list($idFolder){
+	    
+	    $rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	    $d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
 	    $path = "/transfer-system/download/file/$d";
-	    echo '<ul>'; 
+	    // echo '<ul>'; 
 	    
 	    if($dossier = opendir($rep)){ 
 	        while( ($fichier = readdir($dossier)) !== false){ 
 	            if($fichier != '.' && $fichier != '..' ){ 
 	                $name = implode(getFile_name($fichier));
-	                echo '<li><a href="'.$path.'/'.$fichier.'">'.$name.'</a></li>'; 
+					// echo '<li><a href="'.$path.'/'.$fichier.'">'.$name.'</a></li>'; 
+					$array_path[] = $path; 
+					$array_fichier[] = $fichier; 
+					$array_name[] = $name; 
 	            } 
 	        } 
-	        echo '</ul><br/>'; 
-	        closedir($dossier); 
+	        // echo '</ul><br/>'; 
+			closedir($dossier); 
+			echo $twig->render('download.html.twig', array("array_path" => $array_path,
+														   "array_fichier" => $array_fichier,
+														   "array_name" => $array_name));
+
 	    }else{
 	        echo 'Une erreur est survenue'; 
 	    }
 	}
 
 
-	function download_file(){
-	    global $id,$file;
+	function download_file($idFolder, $idFile){
+	    
 
-	    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$id/$file";
+	    $file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
 	      echo $file;
 	    if (file_exists($file)) {
 	        header('Content-Description: File Transfer');
@@ -203,30 +210,30 @@ function  download($id) {
 	    }
 	} 
 
-	function download_zip() {
+	// function download_zip() {
 
-	    $dossier = "./cloud/566642055c125ea005c911.86065219";
+	//     $dossier = "./cloud/566642055c125ea005c911.86065219";
 
-	    $zip = new ZipArchive();
-	    $filename = "test112.zip";
+	//     $zip = new ZipArchive();
+	//     $filename = "test112.zip";
 
-	    if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
-	        exit("Impossible d'ouvrir le fichier <$filename>\n");
-	    } else {
-	        if($dossier = opendir($dossier)){ 
-	            while( ($fichier = readdir($dossier)) !== false){ 
-	                if($fichier != '.' && $fichier != '..' ){
-	                    $zip->addFile(realpath($fichier)); 
-	                }        
-	            }       
-	        }
+	//     if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+	//         exit("Impossible d'ouvrir le fichier <$filename>\n");
+	//     } else {
+	//         if($dossier = opendir($dossier)){ 
+	//             while( ($fichier = readdir($dossier)) !== false){ 
+	//                 if($fichier != '.' && $fichier != '..' ){
+	//                     $zip->addFile(realpath($fichier)); 
+	//                 }        
+	//             }       
+	//         }
 
-	        closedir($dossier);
-	    }
+	//         closedir($dossier);
+	//     }
 	    
-	    $zip->close();
+	//     $zip->close();
 
-	}
+	// }
 }
 
 // Calcul la taille total de tout les fichiers...
@@ -245,7 +252,6 @@ function sendMailTo($sender, $receivers, $url, $message) {
 
 	$mail = new PHPMailer(true); 
 
-	
 	try {
 
 	    //Server settings
@@ -334,10 +340,9 @@ supprime le controller home,
 ajoute le controller file + l'action download,
 réassemble en ajoutant la clée du dossier */
 function makeUrlForDownload($key) {
-	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	$actual_link = explode("home", $actual_link);
-	$actual_link = implode($actual_link);
-	$download_link = $actual_link. "download/list/". $key;
+	
+	// AJUSTER POUR Compatibilité (TODO)
+	$download_link = "transfer-system/file/download/". $key;
 
 	return $download_link;
 }

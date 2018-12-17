@@ -1,4 +1,9 @@
+{% extends 'base.html.twig' %}
+
 {% block body %}
 
+    {% for elem in array_name %}
+        <a href="{{ array_path[loop.index0] }}/{{ array_fichier[loop.index0] }}"> {{ elem }}</a>
+    {% endfor %}
 
 {% endblock %}

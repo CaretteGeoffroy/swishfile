@@ -1,25 +1,24 @@
 <?php
 
+
 if (isset($_SERVER["REQUEST_URI"])) {
 	$requete = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
 
-	$controller = (count($requete) === 1)? "home":$requete[1];
-	$action = (count($requete) < 3)? "log": $requete[2];
+	$controller = (count($requete) === 1)? "file":$requete[1];
+	$action = (count($requete) < 3)? "": $requete[2];
 	$id = (count($requete) < 4)? 0 : $requete[3];
-	$file = (count($requete) < 5)? 0 : $requete[4];
+	$idDossier = (count($requete) < 5)? 0 : $requete[4];
+	
 
 	switch ($controller) {
-		case 'home':
-			require_once("controllers/controller-home.php");
-			break;
+		case 'file':
+		require_once("controllers/controller-file.php");
+		break;
 		case 'dashboard':
 			require_once("controllers/controller-dashboard.php");
-			break;	
-		case 'file':
-			require_once("controllers/controller-download.php");
-			break;			
+			break;		
 		default:
-			require_once("controllers/404.twig");
+			echo "404";
 			break;
 	}
 }

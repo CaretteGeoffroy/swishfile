@@ -21,7 +21,7 @@ switch ($action) {
 		download($id); // DOWNLOAD UN FICHIER
 		break;
 	default:
-		echo $twig->render("file/index.twig"); // RENDER DE LA PAGE PRINCIPAL.
+		echo $twig->render("file/index.twig"); 
 		break;
 }
 
@@ -30,8 +30,6 @@ function upload() {
 	
 	global $twig;
 	
-	echo $twig->render("file/upload.html.twig"); // RENDER DE LA PAGE PRINCIPAL.
-
 	// CONFIG
 	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
 
@@ -43,7 +41,6 @@ function upload() {
 
 		// Tableau mail des receveurs :
 		$receiverMail = $_POST["receiver-mail"];
-
 
 		// l.173 : Verifications des champs via Regex
 		if (checkFormSend($senderMail, $receiverMail)) {
@@ -117,8 +114,13 @@ function upload() {
 					// Prépare l'URL de téléchargement...
 					$urlForDownload = makeUrlForDownload($uniqueFolderName);
 
+					// Renseigne la table user_upload
+					insertSenderUpload($senderMail, $message);
+
 					// l. 119 : ENVOIS DU/DES MAILS avec l'URL...
 					sendMailTo($senderMail, $receiverMail, $urlForDownload, $message); 
+
+					echo $twig->render("file/upload.html.twig", array('url' => $urlForDownload)); // RENDER DE LA PAGE UPLOAD.
 
 				} else {
 

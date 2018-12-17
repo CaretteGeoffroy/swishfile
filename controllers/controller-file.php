@@ -10,16 +10,27 @@ require_once('models/model-upload.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-upload(); // UPLOAD UN FICHIER
-download(); // DOWNLOAD UN FICHIER
+global $action;
+global $id;
+
+switch ($action) {
+	case 'upload':
+		upload(); // UPLOAD UN FICHIER
+		break;
+	case 'download':
+		download($id); // DOWNLOAD UN FICHIER
+		break;
+	default:
+		echo $twig->render("file/index.twig"); // RENDER DE LA PAGE PRINCIPAL.
+		break;
+}
 
 // ACTION UPLOAD FILE
 function upload() {
-
+	
 	global $twig;
-
-	// RENDU DE LA PAGE PRINCIPALE
-	echo $twig->render("index.twig"); // RENDER DE LA PAGE PRINCIPAL.
+	
+	echo $twig->render("file/upload.html.twig"); // RENDER DE LA PAGE PRINCIPAL.
 
 	// CONFIG
 	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
@@ -127,7 +138,7 @@ function upload() {
 
 
 // ACTION : DOWNLOAD FILE
-function  download() {
+function  download($id) {
 
 	switch ($action) {
     

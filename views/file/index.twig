@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+<<<<<<< HEAD
 	
 	
 {% block stylesheets %}
@@ -82,9 +83,47 @@
 		</div>
 	</section>
 {% endblock %}
+=======
+
+
+>>>>>>> db506ed10d82846870127f4fbaa6f497d32aa461
+
+
+{% block body %}
+
+<<<<<<< HEAD
 
 
 
+=======
+	<div class="container-fluid">
+		<div class="container mt-5">
+			<form class="d-flex" action="transfer-system/file/upload" method="post" enctype="multipart/form-data">
+				<div class="col-5 left_content">
+					<label for="file-input" class="text-center">
+						<img src="transfer-system/media/add_file.svg" alt="">
+						Ajoutez vos fichiers <span>(Jusqu'à 5 Mo)</span>
+					</label>
+					<input type="file" name="up[]" id="file-input" class="hidden_file_input" multiple="">
+					<div id="file-upload-filename" class="file_content text-center"><i class="fas fa-file-upload imgUpload"></i></div>
+					<p class="mt-5 text-center info_style"><i class="fas fa-info"></i> {files_number} fichier(s) . {mo_restant} Mo
+						restant</p>
+				</div>
+				<div class="col-7 right_content d-flex flex-column justify-content-around">
+					<input class="w-75 mx-auto" type="mail" placeholder="Envoyer à" name="receiver-mail[]" required>
+					<input class="w-75 mx-auto" type="mail" placeholder="Votre adresse email" name="sender-mail" required>
+					<textarea id="message" class="input_message w-75 mx-auto" name="message" maxlength="500" placeholder="Message (500 charactères max)"></textarea>
+					<input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+					<button class="mx-auto btn" type="submit" name="submit" value="Upload">Transférer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
 
 
-
+{% block scripts %}
+	<script src="transfer-system/js/app.js"></script>
+{% endblock %}
+>>>>>>> db506ed10d82846870127f4fbaa6f497d32aa461

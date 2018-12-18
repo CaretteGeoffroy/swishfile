@@ -49,6 +49,8 @@ function upload() {
 			// Génère un nom de DOSSIER unique à chaques UPLOAD.
 			$uniqueFolderName = uniqid(rand(), true); 
 
+		
+
 			// Tableaux qui contiennent les informations de chacun des fichiers uploadés...
 			$currentArrayNameFile = $_FILES["up"]["name"]; // Tout les noms de chacuns des fichiers
 			$currentArrayTypeFile = $_FILES["up"]["type"]; // Tout les types de chacun des fichiers
@@ -175,6 +177,7 @@ function  download($idFolder, $idFile) {
 function file_list($idFolder){
 	 
 	global $twig;	
+	
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 
@@ -207,7 +210,7 @@ function download_file($idFolder, $idFile){
 	
 
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-	  echo $file;
+
 	if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');

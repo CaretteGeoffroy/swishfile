@@ -14,4 +14,5 @@ function getIdentifier($user, $password) {
 
     return $res;
 }
+
 ?>

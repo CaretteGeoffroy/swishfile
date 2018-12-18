@@ -17,10 +17,12 @@
   </head>
 
   <body class="text-center">
+
     {% if error is defined %}
     <p>"connection invalide"</p>
     {% endif %}
-    <form class="form-signin" method="post" enctype="multipart/form-data" action="/transfer-system/admin/verif">
+    
+    <form class="form-signin" method="post" enctype="multipart/form-data" action="/transfer-system/dashboard/verif">
       {# <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> #}
       <h1 class="h3 mb-3 font-weight-normal">Merci de bien vouloir vous authentifier</h1>
       <label for="inputEmail" class="sr-only">Nom</label>

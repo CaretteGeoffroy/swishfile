@@ -25,14 +25,15 @@ function showlog(){
     global $twig,$action;
     if($action==="error"){
 
-        echo $twig->render("admin.twig", array("error"=>"invalid"));
+        echo $twig->render("dashboard/admin.twig", array("error"=>"invalid"));
     }else{
-        echo $twig->render("admin.twig");
+        echo $twig->render("dashboard/admin.twig");
     }
 }
 
 function verif(){
-
+    global $twig;
+    
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){
     
         $user = $_POST["inputName"];
@@ -46,10 +47,12 @@ function verif(){
                 session_start();
                 $_SESSION['user'] = $user;
                 $_SESSION['pwd'] = $password;
-               header('location:/transfer-system/dashboard');
+            //    header('location:/transfer-system/dashboard');
+               echo $twig->render("dashboard/dashboard.twig");
+
             
             }else{
-                header('location:/transfer-system/admin/error');
+                header('location:/transfer-system/dashboard/error');
             }
     }
 }

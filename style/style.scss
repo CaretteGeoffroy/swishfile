@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* rotation de 6 images à changer dans slideshow.js*/
 .background-cycler img {
     position: absolute;
@@ -10,6 +11,21 @@
 .background-cycler {
     width: 80%;
     height: 80%;
+=======
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+@font-face {
+    font-family: 'lato';
+    src: url('../fonts/lato/Lato-Regular.eot');
+    /* IE9 Compat Modes */
+    src: url('../fonts/lato/Lato-Regular.woff') format('woff'),
+        /* Pretty Modern Browsers */
+        url('../fonts/lato/Lato-Regular.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('../fonts/lato/Lato-Regular.svg') format('svg');
+    /* Legacy iOS */
+    
+>>>>>>> b3177cf81e2adba07403adc0306234a4e44627ce
 }
 
     .card-header {

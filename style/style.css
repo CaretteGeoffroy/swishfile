@@ -6,13 +6,29 @@
   src: url("../fonts/lato/Lato-Regular.woff") format("woff"), url("../fonts/lato/Lato-Regular.ttf") format("truetype"), url("../fonts/lato/Lato-Regular.svg") format("svg");
   /* Legacy iOS */ }
 body {
-  background-color: #13252D; }
+  background-color: #13252D;
+  /* width */
+  /* Track */
+  /* Handle */ }
+  body ::-webkit-scrollbar {
+    width: 10px; }
+  body ::-webkit-scrollbar-track {
+    background: #E9654C; }
+  body ::-webkit-scrollbar-thumb {
+    background: #A34735; }
+  body main .slogan_style {
+    color: white;
+    font-family: 'lato';
+    font-size: 1.5rem; }
+    body main .slogan_style span {
+      color: #4AC6D4; }
   body main .left_content {
-    min-height: 50vh;
+    height: 50vh;
     background-color: #E9654C;
-    box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px; }
+    box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px;
+    overflow-y: scroll; }
   body main .right_content {
-    min-height: 50vh;
+    height: 50vh;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px; }
     body main .right_content input {
@@ -31,6 +47,16 @@ body {
     display: none; }
   body main form .file_content {
     min-height: 30vh; }
+    body main form .file_content .files_content {
+      width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-family: 'lato';
+      font-weight: bold;
+      margin-top: 2rem;
+      margin-bottom: 0 !important;
+      color: #13252D; }
     body main form .file_content i {
       color: #A34735;
       font-size: 12rem;

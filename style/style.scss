@@ -10,22 +10,48 @@
         /* Safari, Android, iOS */
         url('../fonts/lato/Lato-Regular.svg') format('svg');
     /* Legacy iOS */
-    
+
 }
 
 body {
     background-color: #13252D;
 
+                /* width */
+                ::-webkit-scrollbar {
+                    width: 10px;
+                }
+    
+                /* Track */
+                ::-webkit-scrollbar-track {
+                    background: #E9654C;
+                }
+    
+                /* Handle */
+                ::-webkit-scrollbar-thumb {
+                    background: #A34735;
+                }
+
     main {
 
+        .slogan_style{
+            color: white;
+            font-family: 'lato';
+            font-size: 1.5rem;
+
+            span{
+                color: #4AC6D4;
+            }
+        }
+
         .left_content {
-            min-height: 50vh;
+            height: 50vh;
             background-color: #E9654C;
             box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px;
+            overflow-y: scroll;
         }
 
         .right_content {
-            min-height: 50vh;
+            height: 50vh;
             background-color: white;
             box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px;
 
@@ -56,6 +82,18 @@ body {
 
             .file_content {
                 min-height: 30vh;
+
+                .files_content {
+                    width: 200px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    font-family: 'lato';
+                    font-weight: bold;
+                    margin-top: 2rem;
+                    margin-bottom: 0 !important;
+                    color: #13252D;
+                }
 
                 i {
                     color: #A34735;

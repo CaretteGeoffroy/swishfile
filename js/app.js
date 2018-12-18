@@ -15,6 +15,13 @@ function showFileName(event) {
 
         let fileName = input.files[i].name;
 
-        infoArea.innerHTML += '<p class="files_content">' + fileName + '</p>';
+        let fileSize = input.files[i].size;
+
+        fileSize = Math.round(fileSize/1000);
+
+        let getExt = fileName.split('.').pop();
+
+        infoArea.innerHTML += '<p class="files_content d-block mx-auto">' + fileName + '</p>';
+        infoArea.innerHTML += '<p class="files_attribute d-block mx-auto">' + fileSize + ' ko' + ' | ' + getExt + '</p>';
     }
 }

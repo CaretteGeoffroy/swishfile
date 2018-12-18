@@ -1,82 +1,37 @@
 {% extends "base.html.twig" %}
-	
-	
-{% block stylesheets %}
-	<link rel="stylesheet" href="style.css" />
-{% endblock %}
-	
+
+
+
+
 {% block body %}
-	<section class="container-fluid" id="form">
-		<h2 class="text-center mb-5">Transfert de fichiers </h2>
-		<div class="container">
-			<div class="row">
-				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-flex align-items-center justify-content-center">
-				</div>
-				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-flex align-items-center justify-content-center">
-					<div class="card">
-						<h5 class="card-header info-color white-text text-center py-4">
-							<strong>Envoie jusqu'à 5 Mo de fichier(s)</strong>
-						</h5>
-						<div class="card-body px-lg-5 pt-0">
-							<form class="md-form" style="color: #757575" action="transfer-system/file/upload" method="post" enctype="multipart/form-data">
-								<input class="form-control" type="mail" name="sender-mail" placeholder="De (adresse mail)">
 
-								<input class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">+</a>
-								<input class="collapse multi-collapse" id="multiCollapseExample1" class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">+</a>
-								<input class="collapse multi-collapse" id="multiCollapseExample2" class="form-control" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-								<div class="col-sm-10">
-									<div class="file-field">
-										<div class="btn btn-primary btn-sm ">
-											<div class="file-path-wrapper">
-												<input class="file-path validate" type="file" name="up[]" accept=".rar,.zip,.jpg,.txt,.jpeg" multiple="">
-												<input type="hidden" name="MAX_FILE_SIZE" value="5000000"> <br>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="">
-									<div class="col-sm-10">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-											<label class="form-check-label" for="gridRadios1">
-												Email
-											</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-											<label class="form-check-label" for="gridRadios2">
-												Lien
-											</label>
-										</div>
-									</div>
-								</div>
-								<div>
-									<textarea placeholder="Message" name="message"></textarea>
-								</div>
-								<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" value="Upload"
-								 name="submit">Envoyer</button>
-								<div class="text-center">
-									<p>Vos données ?
-										<a href="">Rgpd</a>
-									</p>
-								</div>
-							</form>
-						</div>
-					</div>
+	<div class="container-fluid">
+		<div class="container mt-5">
+			<form class="d-flex" action="transfer-system/file/upload" method="post" enctype="multipart/form-data">
+				<div class="col-5 left_content">
+					<label for="file-input" class="text-center">
+						<img src="transfer-system/media/add_file.svg" alt="">
+						Ajoutez vos fichiers <span>(Jusqu'à 5 Mo)</span>
+					</label>
+					<input type="file" name="up[]" id="file-input" class="hidden_file_input" multiple="">
+					<div id="file-upload-filename" class="file_content text-center"><i class="fas fa-file-upload imgUpload"></i></div>
+					<p class="mt-5 text-center info_style"><i class="fas fa-info"></i> {files_number} fichier(s) . {mo_restant} Mo
+						restant</p>
 				</div>
-				<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 d-flex align-items-center justify-content-center">
+				<div class="col-7 right_content d-flex flex-column justify-content-around">
+					<input class="w-75 mx-auto" type="mail" placeholder="Envoyer à" name="receiver-mail[]" required>
+					<input class="w-75 mx-auto" type="mail" placeholder="Votre adresse email" name="sender-mail" required>
+					<textarea id="message" class="input_message w-75 mx-auto" name="message" maxlength="500" placeholder="Message (500 charactères max)"></textarea>
+					<input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+					<button class="mx-auto btn" type="submit" name="submit" value="Upload">Transférer</button>
 				</div>
-			</div>
+			</form>
 		</div>
-	</section>
+	</div>
+
 {% endblock %}
 
 
-
-
-
-
-
+{% block scripts %}
+	<script src="transfer-system/js/app.js"></script>
+{% endblock %}

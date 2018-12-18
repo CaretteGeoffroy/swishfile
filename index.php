@@ -9,7 +9,6 @@ if (isset($_SERVER["REQUEST_URI"])) {
 	$idFolder = (count($requete) < 4)? 0 : $requete[3];
 	$idFile = (count($requete) < 5)? 0 : $requete[4];
 	
-
 	switch ($controller) {
 		case 'dashboard':
 			require_once("controllers/controller-dashboard.php");
@@ -21,6 +20,6 @@ if (isset($_SERVER["REQUEST_URI"])) {
 			echo "Error 404";
 			break;
 	}
-}
+}	
 
 ?>

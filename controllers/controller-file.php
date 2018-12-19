@@ -37,7 +37,7 @@ function upload() {
 	global $twig;
 	
 	// CONFIG
-	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
+	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc', 'sql' ); // Extensions autorisées.
 
 	// Si on reçoit le formulaire...
 	if (isset($_POST["submit"])) {
@@ -226,7 +226,13 @@ function download_file($idFolder, $idFile){
 	
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
 	down($file);
-} 
+
+	// MODELS :  Insert les infos dans la table files_uploaded.
+	insertFileDownload($idFile);
+
+echo $idFile;
+}
+
 
 // Calcul la taille total de tout les fichiers...
 function getTotalSize($array) {

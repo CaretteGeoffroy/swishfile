@@ -58,27 +58,31 @@ function verif(){
 }
 
 // Dashboard
-function showHistogramme() {
-    global $twig, $id;
-    if ($id !=0) {
-        $details = bdd_actDetail($id);
-    } elseif ($id < 1 || $id > 52) {
-        $details = bdd_actDetail(1);
-    }
-    echo $twig->render('dashboard.twig', array('' => $details, "base_url" => $base_url));
-}
-switch ($action) {
-    case 'list':
-    histogramme();
-        break;
+// function showHistogramme() {
 
-    // case 'detail':
-    //     actDetail();
-    //     break;
+// //     if(isset($_POST['semaine']) {
 
-    //     default:
-	// 	echo $twig->render(".twig"); 
-	// 	break;
-}
+// //         global $twig, $week, $day, $count;
+       
+        
+       
+// //     echo $twig->render('dashboard.twig', 
+// //     array('' => $show, "week" => $week, "day" => $day, "count" => $count));
+// // }
+// // switch ($action) {
+// //     case 'current':
+// //     histogramme();
+
+//         break;
+
+case 'current':
+// //     histogramme();
+
+//         break;
+
+//         default:
+// 		echo $twig->render("dashboard/dashboard.twig"); 
+// 		break;
+// }
 
 ?>

@@ -28,7 +28,7 @@
                         </li>
                         <li class="mt-5"><a href="#"><i class="fi fi-bar-chart"></i> Envois par jour/semaine</a>
                       <select class="select" id="semaine" >
-                            <option value="">--Numéro de semaine--</option>
+                            <option name="semaine" value="">--Numéro de semaine--</option>
                             {% for i in 1..52 %}
                             <option value="">Semaine {{i}}</option>
                             {% endfor %}
@@ -54,14 +54,6 @@
 
         </div>
     </div>
-
-    <select class="select" id="semaine">
-        <option value="">--Choix par semaine--</option>
-        {% for i in 1..52 %}
-            <option value="">Semaine {{i}}</option>
-        {% endfor %}
-    </select>
-
 
 </body>
 

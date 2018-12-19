@@ -41,7 +41,7 @@ function verif(){
     
         $login = getIdentifier($user, $password);
         
-        var_dump($login["nombre"]);
+        // var_dump($login["nombre"]);
             if($login["nombre"]==="1"){
     
                 session_start();
@@ -57,5 +57,28 @@ function verif(){
     }
 }
 
+// Dashboard
+function showHistogramme() {
+    global $twig, $id;
+    if ($id !=0) {
+        $details = bdd_actDetail($id);
+    } elseif ($id < 1 || $id > 52) {
+        $details = bdd_actDetail(1);
+    }
+    echo $twig->render('dashboard.twig', array('' => $details, "base_url" => $base_url));
+}
+switch ($action) {
+    case 'list':
+    histogramme();
+        break;
+
+    // case 'detail':
+    //     actDetail();
+    //     break;
+
+    //     default:
+	// 	echo $twig->render(".twig"); 
+	// 	break;
+}
 
 ?>

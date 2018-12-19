@@ -10,7 +10,11 @@ require_once('models/model-file.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-global $action, $idFolder, $idFile;
+global $base, $action, $idFolder, $idFile;
+
+// $serverName = $_SERVER["SERVER_NAME"]. ":8080";
+$serverName = $_SERVER["SERVER_NAME"];
+
 
 switch ($action) {
 	case 'upload':
@@ -116,12 +120,14 @@ function upload() {
 					// Prépare l'URL de téléchargement...
 					$urlForDownload = makeUrlForDownload($uniqueFolderName);
 
+					var_dump($urlForDownload);
+			
 					// Renseigne la table user_upload
 					insertSenderUpload($senderMail, $message);
 
 					// l. 119 : ENVOIS DU/DES MAILS avec l'URL...
 					sendMailTo($senderMail, $receiverMail, $urlForDownload, $message); 
-
+					
 					echo $twig->render("file/upload.html.twig", array('url' => $urlForDownload)); // RENDER DE LA PAGE UPLOAD.
 
 				} else {
@@ -197,7 +203,6 @@ function file_list($idFolder){
 			if($fichier != '.' && $fichier != '..' ){ 
 				
 				$name = implode(getFile_name($fichier));
-
 				$array_path[] = $path; 
 				$array_fichier[] = $fichier; 
 				$array_name[] = $name; 
@@ -219,7 +224,6 @@ function download_file($idFolder, $idFile){
 	global $file, $name;
 	
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-
 	down($file);
 } 
 
@@ -267,15 +271,12 @@ function sendMailTo($sender, $receivers, $url, $message) {
 
 	    //Content
 	    $mail->isHTML(true);                                        
-	    $mail->Subject = 'Une personne vous a envoyé des fichiers';
-	    $mail->Body    = $twig->render('mail.twig',array("url" => $url, "sender" => $sender, "message" => $message));
+		$mail->Subject = 'Une personne vous a envoyé des fichiers';
+	    $mail->Body = $twig->render('mail.twig', array("url" => $url, "sender" => $sender, "message" => $message));
 	 	
 	 	
 	 	$mail->send();	
 	 	
-	    
-	    // echo "Message envoyé !";
-
 	} catch (Exception $e) {
     	echo "ERREUR ! Le message n'a pas été envoyé : ", $mail->ErrorInfo;
 	}
@@ -328,8 +329,10 @@ ajoute le controller file + l'action download,
 réassemble en ajoutant la clée du dossier */
 function makeUrlForDownload($key) {
 	
+	global $base, $serverName;
+
 	// AJUSTER POUR Compatibilité (TODO)
-	$download_link = "transfer-system/file/download/". $key;
+	$download_link = "https://$serverName/$base/file/download/$key";
 
 	return $download_link;
 }

@@ -27,7 +27,7 @@ function insertFileUpload($arrayDatas) {
 
 	// Bind les paramètres dans la requêtes...
 	$response->bindParam(':name', $arrayDatas["name"], PDO::PARAM_STR);
-	$response->bindParam(':size', $arrayDatas["size"], PDO::PARAM_STR);
+	$response->bindValue(':size', $arrayDatas["size"], PDO::PARAM_STR);
 	$response->bindParam(':ext', $arrayDatas["ext"], PDO::PARAM_STR);
 	$response->bindParam(':folder_key', $arrayDatas["folder_key"], PDO::PARAM_STR);
     $response->bindParam(':file_key', $arrayDatas["file_key"], PDO::PARAM_STR);

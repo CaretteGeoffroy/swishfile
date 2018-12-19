@@ -2,9 +2,9 @@
 
     // Fichier pour se connecter à la base de donnée.
     
-	$username = 'root';
-	$password = 'online@2017';
-	$database ='TRANSFER_DB';
+	$username = 'valerieh';
+	$password = 'hWz96+tt9yPcqA==';
+	$database ='valerieh_TRANSFER_DB';
 	$host = 'localhost';
 
     try{

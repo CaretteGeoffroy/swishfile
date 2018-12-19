@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset=" UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"></i>
+<link  rel="" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js">
+<link rel="stylesheet" href="style/dashboard.css">
+<title>Dashboard | Swish file</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <header>
+            <h1 class="text-center pt-5 pb-5">Dashboard | [Vue d'ensemble]</h1>
+        </header>
+
+        <nav>
+            <div>
+                <aside class="col-2">
+                    <ul>
+                        <li class="mt-5"><a href="#"><i class="fi fi-home"></i> Vue d'ensemble</a>
+                        <hr>
+                        </li>
+                        <li class="mt-5"><a href="#"><i class="fi fi-bar-chart"></i> Envois par jour/semaine</a>
+                      <select class="select" id="semaine" >
+                            <option value="">--Numéro de semaine--</option>
+                            {% for i in 1..52 %}
+                            <option value="">Semaine {{i}}</option>
+                            {% endfor %}
+                            </select>
+                        <hr>{% block histogramme %} {% endblock %}
+                        </li>
+                        <li class="mt-5"><a href="#"><i class="fi fi-line-chart"></i> Pourcentage par semaine</a>
+                        <hr>  {% block secteur %} {% endblock %}
+                        </li>
+                        <li class="mt-5"><a href="#"><i class="fi fi-pie-chart-2"></i> Téléchargement par jour/semaine</a>
+                        <hr>  {% block courbe %}   {% endblock %}
+                        </li>
+                    </ul>
+
+                    <p class="add_user"><a href=""><i class="fi fi-plus-a"></i> Ajouter un utilisateur</a></p>
+
+                    <p class="d-flex align-items-end"><a href="">Se déconnecter <i class="fi fi-caret-right"></i></a></p>
+                </aside>
+            </div>
+        </nav>
+
+        <div>
+
+        </div>
+    </div>
+
+    <select class="select" id="semaine">
+        <option value="">--Choix par semaine--</option>
+        {% for i in 1..52 %}
+            <option value="">Semaine {{i}}</option>
+        {% endfor %}
+    </select>
+
+
+</body>
+
+
+</html>

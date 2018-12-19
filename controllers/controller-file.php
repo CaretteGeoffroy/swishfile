@@ -120,7 +120,7 @@ function upload() {
 					// Prépare l'URL de téléchargement...
 					$urlForDownload = makeUrlForDownload($uniqueFolderName);
 
-					var_dump($urlForDownload);
+					// var_dump($urlForDownload);
 			
 					// Renseigne la table user_upload
 					insertSenderUpload($senderMail, $message);

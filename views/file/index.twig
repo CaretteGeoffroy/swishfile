@@ -1,8 +1,6 @@
 {% extends "base.html.twig" %}
 
 
-
-
 {% block body %}
 
 <div class="text-center mt-2">
@@ -11,10 +9,10 @@
 
 <div class="container-fluid">
 	<div class="container mt-5">
-		<form class="d-flex" action="transfer-system/file/upload" method="post" enctype="multipart/form-data">
+		<form class="d-flex" action="file/upload" method="post" enctype="multipart/form-data">
 			<div class="col-5 left_content">
 				<label for="file-input" class="text-center">
-					<img src="transfer-system/media/add_file.svg" alt="">
+					<img src="media/add_file.svg" alt="">
 					Ajoutez vos fichiers <span>(Jusqu'à 5 Mo)</span>
 				</label>
 				<input type="file" name="up[]" id="file-input" class="hidden_file_input" multiple="">

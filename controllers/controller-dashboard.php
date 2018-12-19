@@ -75,7 +75,7 @@ function verif(){
 
 //         break;
 
-case 'current':
+// case 'current':
 // //     histogramme();
 
 //         break;

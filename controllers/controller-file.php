@@ -15,7 +15,6 @@ global $base, $action, $idFolder, $idFile;
 // $serverName = $_SERVER["SERVER_NAME"]. ":8080";
 $serverName = $_SERVER["SERVER_NAME"];
 
-
 switch ($action) {
 	case 'upload':
 		upload(); // UPLOAD UN FICHIER
@@ -191,7 +190,6 @@ function download_zip($idFolder) {
 	}
 }
 
-
 function file_list($idFolder){
 	global $twig, $idFile, $url_zip,$name;	
 
@@ -219,7 +217,6 @@ function file_list($idFolder){
 		echo 'Une erreur est survenue'; 
 	}
 }
-
 
 function download_file($idFolder, $idFile){
 	global $file, $name;
@@ -283,7 +280,6 @@ function sendMailTo($sender, $receivers, $url, $message) {
 	}
 		
 }
-
 
 // Vérifier la saisi des champs..
 function checkFormSend($senderMail, $receiverMail) {

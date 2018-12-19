@@ -152,7 +152,6 @@ function  download($idFolder, $idFile) {
 
 	file_list($idFolder);
 	download_file($idFolder, $idFile);
-<<<<<<< HEAD
 	// download_zip();
 
 }
@@ -189,38 +188,21 @@ function download_zip($idFolder) {
 	}else{
 	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
 	}
-=======
->>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 }
 
 
 function file_list($idFolder){
-<<<<<<< HEAD
 	global $twig, $idFile, $url_zip,$name;	
 
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 	$path = "/transfer-system/file/download/$d";
-=======
-	 
-	global $twig, $base;	
-	
-	$rep = $_SERVER["DOCUMENT_ROOT"]."/$base/cloud/$idFolder";//Adresse du dossier
-	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/'.$base.'/cloud/');
-
-	$path = "/$base/file/download/$d";
-
->>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 	
 	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
 			if($fichier != '.' && $fichier != '..' ){ 
 				
 				$name = implode(getFile_name($fichier));
-<<<<<<< HEAD
-
-=======
->>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 				$array_path[] = $path; 
 				$array_fichier[] = $fichier; 
 				$array_name[] = $name; 
@@ -241,14 +223,7 @@ function file_list($idFolder){
 function download_file($idFolder, $idFile){
 	global $file, $name;
 	
-<<<<<<< HEAD
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-=======
-	global $base;
-
-	$file = $_SERVER["DOCUMENT_ROOT"]."/$base/cloud/$idFolder/$idFile";
->>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
-
 	down($file);
 } 
 

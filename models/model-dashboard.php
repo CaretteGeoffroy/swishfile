@@ -14,5 +14,37 @@ function getIdentifier($user, $password) {
 
     return $res;
 }
+// dashboard
+
+// Un graphique Histogramme permettant de comparer le nombre de fichiers envoyés par jour 
+// d'après le numéro de semaine choisie dans une liste déroulante de l'année un cours.   
+// ex : Semaine 12 en 2018 - Lundi 12 fichiers, Mardi 14 fichier, Mercredi 52 fichiers...jusqu'au Dimanche.
+function histogramme() {
+
+    global $bdd;
+
+    $sql = "SELECT (SELECT WEEK(ADDDATE(upload_date,5-DAYOFWEEK(upload_date)),3)) as week, 
+    DAYNAME(upload_date) as day, 
+    COUNT(*) FROM `user_upload`
+    WHERE week = $id
+    Group by week, day";
+   
+// Prépare la requête pour éviter les injections SQL...
+$response = $bdd->prepare( $sql );
+
+// Bind les paramètres dans la requêtes...
+$response->bindParam(':week', $arrayDatas["week"], PDO::PARAM_STR);
+$response->bindValue(':day', $arrayDatas["day"], PDO::PARAM_STR);
+$response->bindParam(':count', $arrayDatas["count"], PDO::PARAM_STR);
+
+// Exécute la requête...
+$response->execute();
+}
+
+
+
+
+
+
 
 ?>

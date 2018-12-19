@@ -1,42 +1,3 @@
-<<<<<<< HEAD
-@charset "UTF-8";
-/* rotation de 6 images à changer dans slideshow.js*/
-.background-cycler img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  z-index: -1; }
-
-.background-cycler {
-  width: 80%;
-  height: 80%; }
-
-.card-header {
-  background-color: cornflowerblue; }
-
-h3 {
-  color: antiquewhite; }
-
-h1 {
-  color: royalblue; }
-
-.btn-xsm {
-  border-radius: 40%;
-  background-color: cornflowerblue; }
-
-.btn-outline-primary {
-  background-color: cornflowerblue;
-  color: antiquewhite;
-  border-color: cornflowerblue; }
-
-.txtarea {
-  min-width: 100%; }
-
-.rec {
-  min-width: 100%; }
-=======
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
 @font-face {
   font-family: 'lato';
@@ -109,6 +70,5 @@ body {
     font-size: 1.5rem !important;
     font-weight: bold;
     color: white; }
->>>>>>> 9b090d571f34299a5887b40703ebbb5601fb1048
 
 /*# sourceMappingURL=style.css.map */

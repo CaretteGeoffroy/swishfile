@@ -1,101 +1,10 @@
 {% extends "base.html.twig" %}
-<<<<<<< HEAD
-	
-	
-{% block stylesheets %}
-	<link rel="stylesheet" href="style.css" />
-{% endblock %}
-	
-{% block body %}
-	<section class="container-fluid" id="form">
-		<div class="row d-flex justify-content-end mt-2 mr-4">
-			<img src="media/swish_logo.svg" alt="logo" class="logo">
-			<h1 class="text-center mt-5 mb-5"></h1>
-		</div>
-		<div class="row">
-				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-center">
-				</div>
-				<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center justify-content-center">
-					<div class="card">
-						<h3 class="card-header white-text text-center py-4">
-							<strong>Envoie jusqu'à 5 Mo de fichier(s)</strong>
-						</h3>
-						<div class="card-body px-lg-5 pt-0">
-							<form class="md-form" style="color: #757575" action="transfer-system/file/upload" method="post" enctype="multipart/form-data">
-								<input class="form-control" type="mail" name="sender-mail" placeholder="De (adresse mail)">
-								<div>
-									<input class="form-control mt-3 rec" type="mail" name="receiver-mail[]" placeholder="À (adresse mail)">
-
-									<div><a class="btn-xsm btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false"
-									 aria-controls="collapse1">+</a></div>
-								</div>
-								<input class="collapse multi-collapse mt-1 rec" id="collapse1" class="form-control" type="mail" name="receiver-mail[]"
-								 placeholder="À (adresse mail)">
-
-								<a class="btn-xsm btn-primary" data-toggle="collapse" href="#collapse2" role="button"
-								 aria-expanded="false" aria-controls="collapse2">+</a>
-								<input class="collapse multi-collapse mt-1 mb-3 rec" id="collapse2" class="form-control" type="mail" name="receiver-mail[]"
-								 placeholder="À (adresse mail)">
-								<div class="col-sm-10">
-									<div class="file-field ">
-										<div class="btn btn-outline-primary btn-lg pl-3 pr-3">
-											<div class="file-path-wrapper">
-												<input class="file-path validate btn-outline-primary" type="file" name="up[]" accept=".rar,.zip,.jpg,.txt,.jpeg" multiple="">
-												<input type="hidden" name="MAX_FILE_SIZE" value="5000000"> <br>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="">
-									<div class="col-sm-10">
-										<div class="form-check mt-3">
-											<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-											<label class="form-check-label" for="gridRadios1">
-												Email
-											</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-											<label class="form-check-label" for="gridRadios2">
-												Lien
-											</label>
-										</div>
-									</div>
-								</div>
-								<div>
-									<textarea class="txtarea mt-3" name="message" placeholder="Message"></textarea>
-								</div>
-								<button class="btn btn-outline-primary btn-rounded my-4 btn-block waves-effect z-depth-0" type="submit" value="Upload"
-								 name="submit">Envoyer</button>
-								<div class="text-center">
-									<p>Vos données sont protégées !
-										<a href="views/rgpd.twig">En savoir plus</a>
-									</p>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-center">
-				</div>
-			</div>
-		</div>
-	</section>
-{% endblock %}
-=======
 
 
->>>>>>> db506ed10d82846870127f4fbaa6f497d32aa461
 
 
 {% block body %}
 
-<<<<<<< HEAD
-
-
-
-=======
 	<div class="container-fluid">
 		<div class="container mt-5">
 			<form class="d-flex" action="transfer-system/file/upload" method="post" enctype="multipart/form-data">
@@ -126,4 +35,3 @@
 {% block scripts %}
 	<script src="transfer-system/js/app.js"></script>
 {% endblock %}
->>>>>>> db506ed10d82846870127f4fbaa6f497d32aa461

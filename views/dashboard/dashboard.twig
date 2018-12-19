@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD:views/dashboard/dashboard.twig
 
-=======
->>>>>>> origin/geoffroy:views/dashboard.twig
->>>>>>> db506ed10d82846870127f4fbaa6f497d32aa461
 <html lang="fr">
 <head>
     <meta charset=" UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"></i>
+<link  rel="" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js">
 <link rel="stylesheet" href="style/dashboard.css">
 <title>Dashboard | Swish file</title>
 </head>
@@ -31,14 +26,20 @@
                         <li class="mt-5"><a href="#"><i class="fi fi-home"></i> Vue d'ensemble</a>
                         <hr>
                         </li>
-                        <li class="mt-5"><a href="#"><i class="fi fi-bar-chart"></i> Envoies par semaine</a>
-                        <hr>
+                        <li class="mt-5"><a href="#"><i class="fi fi-bar-chart"></i> Envois par jour/semaine</a>
+                      <select class="select" id="semaine" >
+                            <option value="">--Numéro de semaine--</option>
+                            {% for i in 1..52 %}
+                            <option value="">Semaine {{i}}</option>
+                            {% endfor %}
+                            </select>
+                        <hr>{% block histogramme %} {% endblock %}
                         </li>
-                        <li class="mt-5"><a href="#"><i class="fi fi-line-chart"></i> Envoies par jour</a>
-                        <hr>
+                        <li class="mt-5"><a href="#"><i class="fi fi-line-chart"></i> Pourcentage par semaine</a>
+                        <hr>  {% block secteur %} {% endblock %}
                         </li>
-                        <li class="mt-5"><a href="#"><i class="fi fi-pie-chart-2"></i> Téléchargement par semaine</a>
-                        <hr>
+                        <li class="mt-5"><a href="#"><i class="fi fi-pie-chart-2"></i> Téléchargement par jour/semaine</a>
+                        <hr>  {% block courbe %}   {% endblock %}
                         </li>
                     </ul>
 
@@ -59,11 +60,5 @@
 
 </body>
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD:views/dashboard/dashboard.twig
 
-=======
->>>>>>> origin/geoffroy:views/dashboard.twig
->>>>>>> db506ed10d82846870127f4fbaa6f497d32aa461
 </html>

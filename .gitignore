@@ -2,4 +2,4 @@ composer.phar
 /vendor/
 node_modules/
 cloud/
-
+.vscode/

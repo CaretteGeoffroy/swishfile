@@ -1,6 +1,8 @@
 <?php
 if (isset($_SERVER["REQUEST_URI"])) {
 	$requete = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
+
+	$base = $requete[0];
 	$controller = (count($requete) === 1)? "file":$requete[1];
 	$action = (count($requete) < 3)? "": $requete[2];
 	$idFolder = (count($requete) < 4)? 0 : $requete[3];

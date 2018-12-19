@@ -10,7 +10,11 @@ require_once('models/model-file.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
 
-global $action, $idFolder, $idFile;
+global $base, $action, $idFolder, $idFile;
+
+// $serverName = $_SERVER["SERVER_NAME"]. ":8080";
+$serverName = $_SERVER["SERVER_NAME"];
+
 
 switch ($action) {
 	case 'upload':
@@ -51,8 +55,6 @@ function upload() {
 			
 			// Génère un nom de DOSSIER unique à chaques UPLOAD.
 			$uniqueFolderName = uniqid(rand(), true); 
-
-		
 
 			// Tableaux qui contiennent les informations de chacun des fichiers uploadés...
 			$currentArrayNameFile = $_FILES["up"]["name"]; // Tout les noms de chacuns des fichiers
@@ -118,12 +120,14 @@ function upload() {
 					// Prépare l'URL de téléchargement...
 					$urlForDownload = makeUrlForDownload($uniqueFolderName);
 
+					var_dump($urlForDownload);
+			
 					// Renseigne la table user_upload
 					insertSenderUpload($senderMail, $message);
 
 					// l. 119 : ENVOIS DU/DES MAILS avec l'URL...
 					sendMailTo($senderMail, $receiverMail, $urlForDownload, $message); 
-
+					
 					echo $twig->render("file/upload.html.twig", array('url' => $urlForDownload)); // RENDER DE LA PAGE UPLOAD.
 
 				} else {
@@ -148,6 +152,7 @@ function  download($idFolder, $idFile) {
 
 	file_list($idFolder);
 	download_file($idFolder, $idFile);
+<<<<<<< HEAD
 	// download_zip();
 
 }
@@ -184,22 +189,38 @@ function download_zip($idFolder) {
 	}else{
 	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
 	}
+=======
+>>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 }
 
 
 function file_list($idFolder){
+<<<<<<< HEAD
 	global $twig, $idFile, $url_zip,$name;	
 
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 	$path = "/transfer-system/file/download/$d";
+=======
+	 
+	global $twig, $base;	
+	
+	$rep = $_SERVER["DOCUMENT_ROOT"]."/$base/cloud/$idFolder";//Adresse du dossier
+	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/'.$base.'/cloud/');
+
+	$path = "/$base/file/download/$d";
+
+>>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 	
 	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
 			if($fichier != '.' && $fichier != '..' ){ 
 				
 				$name = implode(getFile_name($fichier));
+<<<<<<< HEAD
 
+=======
+>>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 				$array_path[] = $path; 
 				$array_fichier[] = $fichier; 
 				$array_name[] = $name; 
@@ -220,7 +241,13 @@ function file_list($idFolder){
 function download_file($idFolder, $idFile){
 	global $file, $name;
 	
+<<<<<<< HEAD
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
+=======
+	global $base;
+
+	$file = $_SERVER["DOCUMENT_ROOT"]."/$base/cloud/$idFolder/$idFile";
+>>>>>>> f7dafdcd7d16cb1094f4f3eb263a63e16f14f4a7
 
 	down($file);
 } 
@@ -269,15 +296,12 @@ function sendMailTo($sender, $receivers, $url, $message) {
 
 	    //Content
 	    $mail->isHTML(true);                                        
-	    $mail->Subject = 'Une personne vous a envoyé des fichiers';
-	    $mail->Body    = $twig->render('mail.twig',array("url" => $url, "sender" => $sender, "message" => $message));
+		$mail->Subject = 'Une personne vous a envoyé des fichiers';
+	    $mail->Body = $twig->render('mail.twig', array("url" => $url, "sender" => $sender, "message" => $message));
 	 	
 	 	
 	 	$mail->send();	
 	 	
-	    
-	    // echo "Message envoyé !";
-
 	} catch (Exception $e) {
     	echo "ERREUR ! Le message n'a pas été envoyé : ", $mail->ErrorInfo;
 	}
@@ -330,8 +354,10 @@ ajoute le controller file + l'action download,
 réassemble en ajoutant la clée du dossier */
 function makeUrlForDownload($key) {
 	
+	global $base, $serverName;
+
 	// AJUSTER POUR Compatibilité (TODO)
-	$download_link = "transfer-system/file/download/". $key;
+	$download_link = "https://$serverName/$base/file/download/$key";
 
 	return $download_link;
 }

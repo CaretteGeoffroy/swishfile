@@ -184,6 +184,7 @@ function download_zip($idFolder) {
 	$zip->close();
 	echo 'Archive terminée<br/>';
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
+	
 	down($file);
 	}else{
 	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
@@ -343,7 +344,7 @@ function down($file){
 	if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.$name);
+		header('Content-Disposition: attachment; filename='.$file);
 		header('Content-Transfer-Encoding: binary');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

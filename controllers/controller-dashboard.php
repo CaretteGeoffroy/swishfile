@@ -32,9 +32,8 @@ function showlog(){
 }
 
 function verif(){
-
     global $twig;
-
+    
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){
     
         $user = $_POST["inputName"];
@@ -48,7 +47,9 @@ function verif(){
                 session_start();
                 $_SESSION['user'] = $user;
                 $_SESSION['pwd'] = $password;
-               echo $twig-> render("dashboard/dashboard.twig");
+            //    header('location:/transfer-system/dashboard');
+               echo $twig->render("dashboard/dashboard.twig");
+
             
             }else{
                 header('location:/transfer-system/dashboard/error');

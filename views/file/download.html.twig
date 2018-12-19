@@ -3,7 +3,8 @@
 {% block body %}
 
     {% for elem in array_name %}
-        <a href="{{ array_path[loop.index0] }}/{{ array_fichier[loop.index0] }}"> {{ elem }}</a>
+        <a href="{{ array_path[loop.index0] }}/{{ array_fichier[loop.index0] }}"> {{ elem }}</a></br>
     {% endfor %}
 
+<a href="{{ url_zip }}"><button type="submit"> Télécharger en zip</button></a>
 {% endblock %}

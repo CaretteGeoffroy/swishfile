@@ -19,6 +19,9 @@ switch ($action) {
 	case 'download':
 		download($idFolder, $idFile); // DOWNLOAD UN FICHIER
 		break;
+	case 'zip':
+		download_zip($idFolder); // DOWNLOAD UN FICHIER ZIP
+		break;
 	default:
 		echo $twig->render("file/index.twig"); 
 		break;
@@ -145,60 +148,68 @@ function  download($idFolder, $idFile) {
 
 	file_list($idFolder);
 	download_file($idFolder, $idFile);
+	// download_zip();
 
-
-
-	// function download_zip() {
-
-	//     $dossier = "./cloud/566642055c125ea005c911.86065219";
-
-	//     $zip = new ZipArchive();
-	//     $filename = "test112.zip";
-
-	//     if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
-	//         exit("Impossible d'ouvrir le fichier <$filename>\n");
-	//     } else {
-	//         if($dossier = opendir($dossier)){ 
-	//             while( ($fichier = readdir($dossier)) !== false){ 
-	//                 if($fichier != '.' && $fichier != '..' ){
-	//                     $zip->addFile(realpath($fichier)); 
-	//                 }        
-	//             }       
-	//         }
-
-	//         closedir($dossier);
-	//     }
-	    
-	//     $zip->close();
-
-	// }
 }
 
-function file_list($idFolder){
-	 
-	global $twig;	
-	
+function download_zip($idFolder) {
+	global $idFolder, $d, $file;
+
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
-
 	$path = "/transfer-system/file/download/$d";
-	// echo '<ul>'; 
+	
+	
+	$zip = new ZipArchive(); 
+	if($zip->open('swish.zip', ZipArchive::CREATE) === true){
+	  	echo '&quot;Zip.zip&quot; ouvert<br/>';
+	  	if($dossier = opendir($rep)){ 
+		while( ($fichier = readdir($dossier)) !== false){ 
+			if($fichier != '.' && $fichier != '..' ){ 
+					$name = $fichier;
+				$test = "$rep/$name";
+			 // Ajout d'un fichier
+			  $zip->addFile($test,$name);	
+			} 
+		} 
+		closedir($dossier); 
+	}else{
+		echo 'Une erreur est survenue'; 
+	}
+			 // On referme l'archive
+	$zip->close();
+	echo 'Archive terminée<br/>';
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
+	down($file);
+	}else{
+	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
+	}
+}
+
+
+function file_list($idFolder){
+	global $twig, $idFile, $url_zip,$name;	
+
+	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
+	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
+	$path = "/transfer-system/file/download/$d";
 	
 	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
 			if($fichier != '.' && $fichier != '..' ){ 
+				
 				$name = implode(getFile_name($fichier));
-				// echo '<li><a href="'.$path.'/'.$fichier.'">'.$name.'</a></li>'; 
+
 				$array_path[] = $path; 
 				$array_fichier[] = $fichier; 
 				$array_name[] = $name; 
 			} 
 		} 
-		// echo '</ul><br/>'; 
 		closedir($dossier); 
+		$url_zip = "/transfer-system/file/zip/$idFolder";
 		echo $twig->render('file/download.html.twig', array("array_path" => $array_path,
 													   "array_fichier" => $array_fichier,
-													   "array_name" => $array_name));
+													   "array_name" => $array_name,"url_zip"=>$url_zip));
 
 	}else{
 		echo 'Une erreur est survenue'; 
@@ -207,24 +218,11 @@ function file_list($idFolder){
 
 
 function download_file($idFolder, $idFile){
+	global $file, $name;
 	
-
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
 
-	if (file_exists($file)) {
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.basename($file));
-		header('Content-Transfer-Encoding: binary');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Pragma: public');
-		header('Content-Length: ' . filesize($file));
-		ob_clean();
-		flush();
-		readfile($file);
-		exit;
-	}
+	down($file);
 } 
 
 // Calcul la taille total de tout les fichiers...
@@ -338,4 +336,23 @@ function makeUrlForDownload($key) {
 	return $download_link;
 }
 
+function down($file){
+	global $file, $name;
+
+	if (file_exists($file)) {
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.$name);
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($file));
+		ob_clean();
+		flush();
+		readfile($file);
+		unlink($file);
+		exit;
+	}
+}
 ?>

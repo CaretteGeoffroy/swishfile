@@ -146,7 +146,6 @@ function upload() {
 
 	}
 
-
 // ACTION : DOWNLOAD FILE
 function  download($idFolder, $idFile) {
 

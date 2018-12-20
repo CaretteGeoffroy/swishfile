@@ -180,11 +180,8 @@ function download_zip($idFolder) {
 	echo 'Archive terminée<br/>';
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/swish.zip";
 
-	down($file);
-	// MODELS :  Insert les infos dans la table files_downloaded.
-	insertFolderDownload($idFolder);
-// var_dump( $idFolder);
-
+	down($file, $idFile, $idFolder );
+	
 	}else{
 	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
 	}
@@ -220,14 +217,10 @@ function file_list($idFolder){
 
 
 function download_file($idFolder, $idFile){
-	global $file;
-	
+		
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-	down($file);
-
-// MODELS :  Insert les infos dans la table files_uploaded.
-	insertFileDownload($idFile);
-// var_dump( $idFile);
+	
+	down($file, $idFile, $idFolder);
 
 
 }
@@ -343,14 +336,12 @@ function makeUrlForDownload($key) {
 	return $download_link;
 }
 
-function down($file){
-	global $file, $idFile,$name;
-
+function down($file, $idFile, $idFolder){
 	
 	$fichier = $idFile;
-	$extension = pathinfo($fichier, PATHINFO_EXTENSION);
+	// $extension = pathinfo($fichier, PATHINFO_EXTENSION);
+
 	$name = implode(getFile_name($fichier));
-	
 	
 	if (file_exists($file)) {
 		header('Content-Description: File Transfer');
@@ -366,5 +357,13 @@ function down($file){
 		readfile($file);
 		exit;
 	}
+// MODELS :  Insert les infos dans la table files_downloaded.
+insertFolderDownload($idFolder);
+// var_dump( $idFolder);
+// MODELS :  Insert les infos dans la table files_uploaded.
+insertFileDownload($idFile);
+
+// var_dump( $idFile);
+
 }
 ?>

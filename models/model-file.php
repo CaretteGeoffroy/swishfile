@@ -55,20 +55,37 @@ function insertSenderUpload($sender, $message) {
     $response->execute();
 }
 
+function insertFolderDownload($idFolder) {
+
+	global $bdd;
+
+	$sql = "INSERT INTO `files_downloaded`(`folder_key`) 
+			VALUES (:idFolder)";
+
+	// Prépare la requête pour éviter les injections SQL...
+	$response = $bdd->prepare( $sql );		
+
+	// Bind les paramètres dans la requêtes...
+	
+	$response->bindParam(':idFolder', $idFolder, PDO::PARAM_STR);
+
+	// Exécute la requête...
+	$response->execute();
+}
 
 function insertFileDownload($idFile) {
 
 		global $bdd;
 	
-		$sql = "INSERT INTO `files_downloaded`(`file_id`) 
-				VALUES (:file_id)";
+		$sql = "INSERT INTO `files_downloaded`(`file_key`) 
+				VALUES (:idFile)";
 	
 		// Prépare la requête pour éviter les injections SQL...
 		$response = $bdd->prepare( $sql );		
 	
 		// Bind les paramètres dans la requêtes...
 		
-		$response->bindParam(':file_id', $file_id, PDO::PARAM_STR);
+		$response->bindParam(':idFile', $idFile, PDO::PARAM_STR);
 	
 		// Exécute la requête...
 		$response->execute();

@@ -181,6 +181,10 @@ function download_zip($idFolder) {
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/swish.zip";
 
 	down($file);
+	// MODELS :  Insert les infos dans la table files_downloaded.
+	insertFolderDownload($idFolder);
+// var_dump( $idFolder);
+
 	}else{
 	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
 	}
@@ -221,10 +225,11 @@ function download_file($idFolder, $idFile){
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
 	down($file);
 
-	// MODELS :  Insert les infos dans la table files_uploaded.
+// MODELS :  Insert les infos dans la table files_uploaded.
 	insertFileDownload($idFile);
+// var_dump( $idFile);
 
-echo $idFile;
+
 }
 
 

@@ -26,7 +26,7 @@ function histogramme() {
     $sql = "SELECT (SELECT WEEK(ADDDATE(upload_date,5-DAYOFWEEK(upload_date)),3)) as week, 
     DAYNAME(upload_date) as day, 
     COUNT(*) FROM `user_upload`
-    WHERE week = $id
+    WHERE (SELECT WEEK(ADDDATE(upload_date,5-DAYOFWEEK(upload_date)),3)) = $id
     Group by week, day";
    
 // Prépare la requête pour éviter les injections SQL...

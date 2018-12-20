@@ -7,6 +7,7 @@ require_once('models/model-dashboard.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
  // RENDER DE LA PAGE PRINCIPAL.
+ 
 
 switch ($action) {
     case 'log':
@@ -16,6 +17,9 @@ switch ($action) {
     case 'verif':
         verif();
          break;
+    case 'week':
+        showWeek($idFolder);
+        break;     
     default:
         # code...
         break;
@@ -35,50 +39,64 @@ function verif(){
     global $twig;
     
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){
-    
+        
+        // Récupérer les champs en POST
         $user = $_POST["inputName"];
         $password = $_POST["inputPassword"];
-    
-        $login = getIdentifier($user, $password);
         
-        // var_dump($login["nombre"]);
+        // Compare avec la BDD pour vérifier que l'utilisateur existe
+        $login = getIdentifier($user, $password);
+
+            // Si c'est bon...
             if($login["nombre"]==="1"){
-    
+                
+                // Démarre une session
                 session_start();
+                // $arrayContainsAllWeeks = getAllWeeks();
                 $_SESSION['user'] = $user;
                 $_SESSION['pwd'] = $password;
-            //    header('location:/transfer-system/dashboard');
-               echo $twig->render("dashboard/dashboard.twig");
+                // Render la page principal
+                echo $twig->render("dashboard/dashboard.twig");
 
             
-            }else{
-                header('location:/transfer-system/dashboard/error');
             }
+    } else {
+        header('location:/transfer-system/dashboard/error');
     }
 }
 
-// Dashboard
-function showHistogramme() {
-    global $twig, $id;
-    if ($id !=0) {
-        $details = bdd_actDetail($id);
-    } elseif ($id < 1 || $id > 52) {
-        $details = bdd_actDetail(1);
-    }
-    echo $twig->render('dashboard.twig', array('' => $details, "base_url" => $base_url));
+// AJAX
+function showWeek($week) {
+    global $twig;
+    $canvas = $twig->render('dashboard/block_ajax_chart.twig');
+    $dataChart = [10,45,63,78,96];
+    $datas = array("canvas" => $canvas, "dataChart" => $dataChart);
+    echo json_encode($datas);
 }
-switch ($action) {
-    case 'list':
-    histogramme();
-        break;
 
-    // case 'detail':
-    //     actDetail();
-    //     break;
 
-    //     default:
-	// 	echo $twig->render(".twig"); 
-	// 	break;
-}
+// // Dashboard
+// function showHistogramme() {
+//     global $twig, $id;
+//     if ($id !=0) {
+//         $details = bdd_actDetail($id);
+//     } elseif ($id < 1 || $id > 52) {
+//         $details = bdd_actDetail(1);
+//     }
+//     echo $twig->render('dashboard.twig', array('' => $details, "base_url" => $base_url));
+// }
+// switch ($action) {
+//     case 'list':
+//     histogramme();
+//         break;
+
+//     // case 'detail':
+//     //     actDetail();
+//     //     break;
+
+//     //     default:
+// 	// 	echo $twig->render(".twig"); 
+// 	// 	break;
+// }
 
 ?>

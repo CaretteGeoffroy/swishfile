@@ -38,6 +38,15 @@ function fetchWeekInfo(week) {
 
             let arrayUpload =  [0,0,0,0,0,0,0];
             let arrayDownload =  [0,0,0,0,0,0,0];
+
+            // switch (dataUpload) {
+            //     case value:
+                    
+            //         break;
+            
+            //     default:
+            //         break;
+            // }
             
             // REPRENDRE ICI
             // TODO : ATTRIBUER CHAQUES VALEURS DE CHAQUE JOUR DANS LEURS TABLEAUX RESPECTIF
@@ -54,7 +63,7 @@ function fetchWeekInfo(week) {
                     datasets: [{
                         label: "Upload by date",
                         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
-                        data: [2478, 5267, 734, 784, 433, 450, 100]
+                        data: arrayDownload
                     }]
                 },
                 options: {
@@ -75,7 +84,7 @@ function fetchWeekInfo(week) {
                     datasets: [{
                         label: "Upload by date",
                         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
-                        data: [2478, 5267, 734, 784, 433, 450, 100]
+                        data: arrayUpload
                     }]
                 },
                 options: {

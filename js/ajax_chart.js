@@ -39,7 +39,8 @@ function fetchWeekInfo(week) {
             let arrayUpload =  [0,0,0,0,0,0,0];
             let arrayDownload =  [0,0,0,0,0,0,0];
             
-            
+            // REPRENDRE ICI
+            // TODO : ATTRIBUER CHAQUES VALEURS DE CHAQUE JOUR DANS LEURS TABLEAUX RESPECTIF
 
             for (let i of dataUpload ) {
                 console.log(i)

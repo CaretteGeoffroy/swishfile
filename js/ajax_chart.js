@@ -36,48 +36,14 @@ function fetchWeekInfo(week) {
             let dataUpload = res.dataUpload;
             let dataDownload = res.dataDownload;
 
-            let arrayUpload =  [0,0,0,0,0,0,0];
-            let arrayDownload =  [0,0,0,0,0,0,0];
+            // console.log(dataDownload);
+            // console.log(dataUpload);
 
-            // switch (dataUpload) {
-            //     case value:
-                    
-            //         break;
-            
-            //     default:
-            //         break;
-            // }
-            
-            // REPRENDRE ICI
-            // TODO : ATTRIBUER CHAQUES VALEURS DE CHAQUE JOUR DANS LEURS TABLEAUX RESPECTIF
+            let arrayUpload = arrayShowUploadFiles(dataUpload);
+            let arrayDownload = arrayShowDownloadFiles(dataDownload);
 
-            for (let i of dataUpload ) {
-                console.log(i)
-            }
-        
             // Bar chart
-            let uploadCharts = new Chart(document.getElementById("chartDownload"), {
-                type: 'bar',
-                data: {
-                    labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-                    datasets: [{
-                        label: "Upload by date",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
-                        data: arrayDownload
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: true,
-                        text: 'Download/Jours'
-                    }
-                }
-            });
-
-            let downloadCharts = new Chart(document.getElementById("chartUpload"), {
+            let uploadCharts = new Chart(document.getElementById("chartUpload"), {
                 type: 'bar',
                 data: {
                     labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
@@ -93,7 +59,28 @@ function fetchWeekInfo(week) {
                     },
                     title: {
                         display: true,
-                        text: 'Upload/Jours'
+                        text: 'UPLOAD/Jours'
+                    }
+                }
+            });
+
+            let downloadCharts = new Chart(document.getElementById("chartDownload"), {
+                type: 'bar',
+                data: {
+                    labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+                    datasets: [{
+                        label: "Upload by date",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
+                        data: arrayDownload
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'DOWNLOAD/Jours'
                     }
                 }
             }); 
@@ -103,4 +90,81 @@ function fetchWeekInfo(week) {
         .catch((err) => {
             if (err) throw err;
         })
+}
+
+
+function arrayShowUploadFiles(dataObject) {
+
+    let array =  [0,0,0,0,0,0,0];
+
+    for (let i of dataObject) {
+        // console.log(i)
+
+        switch (i.day) {
+           case "Monday":
+                array[0] = i.upload;
+                break;
+           case "Tuesday":
+                array[1] = i.upload;
+                break;
+           case "Wednesday":
+                array[2] = i.upload;                        
+                break;
+           case "Thursday":
+                array[3] = i.upload;
+                break;
+           case "Friday":
+                array[4] = i.upload;
+                break;
+           case "Saturday":
+                array[5] = i.upload;                       
+                break;
+           case "Sunday":
+                array[6] = i.upload;                       
+                break;
+            default:
+                break;
+        }
+    }
+
+    return array;
+
+}
+
+function arrayShowDownloadFiles(dataObject) {
+
+    let array =  [0,0,0,0,0,0,0];
+
+    for (let i of dataObject) {
+        // console.log(i)
+
+        switch (i.day) {
+           case "Monday":
+                array[0] = i.download;
+                break;
+           case "Tuesday":
+                array[1] = i.download;
+                break;
+           case "Wednesday":
+                array[2] = i.download;                        
+                break;
+           case "Thursday":
+                array[3] = i.download;
+                break;
+           case "Friday":
+                array[4] = i.download;
+                break;
+           case "Saturday":
+                array[5] = i.download;                       
+                break;
+           case "Sunday":
+                array[6] = i.download;                       
+                break;
+            default:
+                break;
+        }
+    }
+
+    return array;
+
 }

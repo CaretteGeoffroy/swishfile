@@ -321,7 +321,7 @@ function checkFormSend($senderMail, $receiverMail) {
 	} else {
 		return false;
 	}
-
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
 }
 
 /* Récupère l'URL actuel,

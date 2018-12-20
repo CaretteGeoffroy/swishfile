@@ -128,6 +128,29 @@ body {
   100%,
             12% {
     transform: rotate(-405deg); } }
+  body main .download_maindiv {
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px; }
+    body main .download_maindiv .download_icon {
+      font-size: 5rem;
+      color: #E9654C;
+      margin-bottom: 1rem; }
+    body main .download_maindiv button {
+      background-color: #4AC6D4;
+      font-family: 'lato';
+      font-weight: bold;
+      color: white;
+      margin-top: 1rem;
+      margin-bottom: 1rem; }
+    body main .download_maindiv .files_contenu {
+      font-family: 'lato';
+      font-weight: bold;
+      color: #13252D;
+      text-decoration: underline; }
+    body main .download_maindiv .download_files_style {
+      font-size: 1.5rem;
+      font-family: 'lato';
+      color: #13252D; }
   body main .upload_maindiv {
     height: 294px;
     background: white;

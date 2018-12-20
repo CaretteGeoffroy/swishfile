@@ -72,13 +72,9 @@
               <div class="d-flex justifiy-content-center align-items-center p-3">
                 <span data-feather="calendar" ></span>
                   <select class="custom-select" id="select-week">
-                    <option value="1">Semaine 1</option>
-                    <option value="2">Semaine 2</option>
-                    <option value="3">Semaine 3</option>
-                    <option value="4">Semaine 4</option>
-                    {# {% for elem in array %}
-                      <option value="{{week.id}}>{{week.name}}</option>
-                    {% endblock %} #}
+                    {% for elem in weeks %}
+                      <option value="{{elem.week}}">Semaine {{elem.week}}</option>
+                    {% endfor %}
                     
                   </select>
 

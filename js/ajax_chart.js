@@ -28,19 +28,32 @@ function fetchWeekInfo(week) {
         })
         .then((res) => {
 
+
             let wrapper = document.querySelector("#wrapper-chart");
 
             wrapper.innerHTML = res.canvas;
 
+            let dataUpload = res.dataUpload;
+            let dataDownload = res.dataDownload;
+
+            let arrayUpload =  [0,0,0,0,0,0,0];
+            let arrayDownload =  [0,0,0,0,0,0,0];
+            
+            
+
+            for (let i of dataUpload ) {
+                console.log(i)
+            }
+        
             // Bar chart
-            new Chart(document.getElementById("chart"), {
+            let uploadCharts = new Chart(document.getElementById("chartDownload"), {
                 type: 'bar',
                 data: {
-                    labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+                    labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
                     datasets: [{
-                        label: "Population (millions)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                        data: [2478, 5267, 734, 784, 433]
+                        label: "Upload by date",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
+                        data: [2478, 5267, 734, 784, 433, 450, 100]
                     }]
                 },
                 options: {
@@ -49,10 +62,31 @@ function fetchWeekInfo(week) {
                     },
                     title: {
                         display: true,
-                        text: 'Predicted world population (millions) in 2050'
+                        text: 'Download/Jours'
                     }
                 }
             });
+
+            let downloadCharts = new Chart(document.getElementById("chartUpload"), {
+                type: 'bar',
+                data: {
+                    labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+                    datasets: [{
+                        label: "Upload by date",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
+                        data: [2478, 5267, 734, 784, 433, 450, 100]
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Upload/Jours'
+                    }
+                }
+            }); 
 
 
         })

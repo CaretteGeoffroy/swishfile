@@ -37,6 +37,11 @@ function showlog(){
 
 function verif(){
     global $twig;
+
+    // $uploadForWeek = getHistogrammeUpload(51);
+    // print_r($uploadForWeek); 
+
+
     
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){
         
@@ -52,11 +57,14 @@ function verif(){
                 
                 // Démarre une session
                 session_start();
+
                 // $arrayContainsAllWeeks = getAllWeeks();
                 $_SESSION['user'] = $user;
                 $_SESSION['pwd'] = $password;
+
+                $weeks = getAllWeeks();
                 // Render la page principal
-                echo $twig->render("dashboard/dashboard.twig");
+                echo $twig->render("dashboard/dashboard.twig", array("weeks" => $weeks));
 
             
             }
@@ -67,11 +75,18 @@ function verif(){
 
 // AJAX
 function showWeek($week) {
+
     global $twig;
+    
     $canvas = $twig->render('dashboard/block_ajax_chart.twig');
-    $dataChart = [10,45,63,78,96];
-    $datas = array("canvas" => $canvas, "dataChart" => $dataChart);
+    $dataUpload = getHistogrammeUpload($week);
+    $dataDownload = getHistogrammeDownload($week);
+    // $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload);
+    $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload);
     echo json_encode($datas);
+    // echo $datas;
+
+    
 }
 
 

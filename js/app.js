@@ -6,12 +6,8 @@ let i;
 let correct = false;
 
 input.addEventListener('change', showFileName);
-myButton.addEventListener('click', verifInputValue);
 
 // Permet l'affichage des fichiers insérés avec leurs infos (nom, taille, extention)
-
-
-
 function showFileName(event) {
 
     // Fait disparaitre l'image d'upload
@@ -24,13 +20,13 @@ function showFileName(event) {
         let input = event.srcElement;
 
         // Affiche le nom des fichiers insérés
-        let fileName = input.files[i].name; 
+        let fileName = input.files[i].name;
 
         // Affiche la taille des fichiers insérés
         let fileSize = input.files[i].size;
 
         // Converti octets en ko
-        fileSize = Math.round(fileSize/1000);
+        fileSize = Math.round(fileSize / 1000);
 
         // Récupère l'extention du fichier
         let getExt = fileName.split('.').pop();
@@ -40,9 +36,9 @@ function showFileName(event) {
         infoArea.innerHTML += '<p class="files_attribute d-block mx-auto">' + fileSize + ' ko' + ' | ' + getExt + '</p>';
 
         // Affecte une valeur a l'input
-        
 
-        
+
+
     }
 }
 
@@ -50,14 +46,15 @@ function showFileName(event) {
 function copyLink() {
 
     let copyText = document.getElementById("inputLink");
-  
-    copyText.select();
-  
-    document.execCommand("copy");
-  
-    alert("Le lien a été copié dans le presse-papier !");
-  }
 
+    copyText.select();
+
+    document.execCommand("copy");
+
+    alert("Le lien a été copié dans le presse-papier !");
+}
+
+myButton.addEventListener('click', verifInputValue);
 
 function verifInputValue() {
 
@@ -68,4 +65,16 @@ function verifInputValue() {
     }
 }
 
+let myContentLink = document.querySelector('.files_contenu')
+const myDownloadIcon = document.querySelector('.download_over')
 
+myContentLink.addEventListener('mouseenter', downloadHoverX);
+myContentLink.addEventListener('mouseleave', downloadHoverY);
+
+function downloadHoverX() {
+    myDownloadIcon.style.display = "block";
+}
+
+function downloadHoverY() {
+    myDownloadIcon.style.display = "none";
+}

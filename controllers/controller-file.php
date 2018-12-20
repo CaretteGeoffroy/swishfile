@@ -223,8 +223,10 @@ function download_file($idFolder, $idFile){
 	global $file;
 	
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
+	$fichier = $idFile;
+	$name = implode(getFile_name($fichier));
 	down($file);
-
+	
 // MODELS :  Insert les infos dans la table files_uploaded.
 	insertFileDownload($idFile);
 // var_dump( $idFile);
@@ -345,11 +347,6 @@ function makeUrlForDownload($key) {
 
 function down($file){
 	global $file, $idFile,$name;
-
-	
-	$fichier = $idFile;
-	$extension = pathinfo($fichier, PATHINFO_EXTENSION);
-	$name = implode(getFile_name($fichier));
 	
 	
 	if (file_exists($file)) {

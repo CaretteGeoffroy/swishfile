@@ -11,20 +11,28 @@
         text-decoration: none !important;
         color: black !important;
       }
+
+      .sender_mail{
+        color: #4AC6D4;
+      }
+
+      .button_color{
+        color: white;
+      }
     </mj-style>
   </mj-head>
-  <mj-body background-color="#bedae6">
+  <mj-body background-color="#13252D">
     <mj-section>
       <mj-column width="100%">
-        <mj-image src="media/swish_logo.png" alt="header image" padding="0px"></mj-image>
+        <mj-image src="media/banniere_swish.svg" alt="header image" padding="0px"></mj-image>
       </mj-column>
     </mj-section>
     <mj-section padding-bottom="20px" padding-top="10px">
       <mj-column>
-        <mj-text align="center" padding="10px 25px" font-size="20px" color="#512d0b"><strong><span color="blue">{{mail_envoyeur}}</span> vous a envoyez des fichiers</strong></mj-text>
+        <mj-text align="center" padding="10px 25px" font-size="20px" color="#000000"><strong><span class="sender_mail">{{sender}}</span> vous a envoyé des fichiers</strong></mj-text>
         <mj-text align="center" font-weight="bold" padding="10px 25px">Message joint :</mj-text>
-        <mj-text align="center">{{message_content}}</mj-text>
-        <mj-button background-color="#8bb420" href="#" target="_blank" font-family="Arial, sans-serif" padding="20px 0 0 0" font-weight="bold" font-size="16px"><span color="#000000">Télécharger les fichiers</span></mj-button>
+        <mj-text align="center">{{message}}</mj-text>
+        <mj-button background-color="#13252D" href="{{url}}" target="_blank" font-family="Arial, sans-serif" padding="20px 0 0 0" font-weight="bold" font-size="16px"><span class="button_color">Télécharger les fichiers</span></mj-button>
         <mj-text align="center" color="#000000" font-size="14px" font-family="Arial, sans-serif" padding-top="40px">Amicalement, <br />L'équipe swich file 😄
           <p></p>
         </mj-text>

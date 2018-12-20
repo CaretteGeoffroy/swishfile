@@ -129,9 +129,31 @@ body {
             12% {
     transform: rotate(-405deg); } }
   body main .upload_maindiv {
-    height: 50vh;
+    height: 294px;
     background: white;
-    position: relative; }
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px; }
+    body main .upload_maindiv i {
+      color: #E9654C;
+      font-size: 1.2rem; }
+    body main .upload_maindiv .mail_success {
+      font-family: 'lato';
+      color: #13252D;
+      font-size: 1.5rem; }
+    body main .upload_maindiv input {
+      font-family: 'lato';
+      color: rgba(0, 0, 0, 0.35); }
+    body main .upload_maindiv button {
+      background-color: #4AC6D4;
+      border-color: #4AC6D4;
+      border-radius: 0; }
+      body main .upload_maindiv button span {
+        font-weight: bold;
+        color: white; }
+  body main .upload_footer {
+    background: #E9654C;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.377) 7px 5px 10px 5px; }
   body main .upload_linkdiv {
     width: 100%;
     position: absolute;

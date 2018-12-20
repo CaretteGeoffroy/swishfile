@@ -42,5 +42,5 @@ function copyLink() {
   
     document.execCommand("copy");
   
-    alert("Le lien a été copié avec succès !");
+    alert("Le lien a été copié dans le presse-papier !");
   }

@@ -165,7 +165,7 @@ function download_zip($idFolder) {
 	
 	
 	$zip = new ZipArchive(); 
-	if($zip->open('swish.zip', ZipArchive::CREATE) === true){
+	if($zip->open('cloud/swish.zip', ZipArchive::CREATE) === true){
 	  	echo '&quot;Zip.zip&quot; ouvert<br/>';
 	  	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
@@ -183,7 +183,7 @@ function download_zip($idFolder) {
 			 // On referme l'archive
 	$zip->close();
 	echo 'Archive terminée<br/>';
-	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/swish.zip";
 	
 	down($file);
 	}else{
@@ -321,7 +321,7 @@ function checkFormSend($senderMail, $receiverMail) {
 	} else {
 		return false;
 	}
-
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
 }
 
 /* Récupère l'URL actuel,

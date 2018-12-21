@@ -1,4 +1,5 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../style/responsive/991px_768px.css";
 
 @font-face {
     font-family: 'lato';
@@ -191,12 +192,78 @@ body {
             }
         }
 
+        .download_maindiv{
+            background: white;
+            box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px;
+
+            .download_icon{
+                font-size: 5rem;
+                color: #E9654C;
+                margin-bottom: 1rem;
+            }
+
+            button{
+                background-color: #4AC6D4;
+                font-family: 'lato';
+                font-weight: bold;
+                color: white;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .files_contenu {
+                font-family: 'lato';
+                font-weight: bold;
+                color: #13252D;
+                text-decoration: underline;
+            }
+
+            .download_files_style{
+                font-size: 1.5rem;
+                font-family: 'lato';
+                color: #13252D;
+            }
+        }
+
         .upload_maindiv {
 
-            height: 50vh;
+            height: 294px;
             background: white;
             position: relative;
+            box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px;
 
+            i{
+                color: #E9654C;
+                font-size: 1.2rem;
+            }
+
+            .mail_success{
+                font-family: 'lato';
+                color: #13252D;
+                font-size: 1.5rem;
+            }
+
+            input{
+                font-family: 'lato';
+                color: rgba(0, 0, 0, 0.350);
+            }
+
+            button{
+                background-color: #4AC6D4;
+                border-color: #4AC6D4;
+                border-radius: 0;
+
+                span{
+                    font-weight: bold;
+                    color: white;
+                }
+            }
+        }
+
+        .upload_footer{
+            background: #E9654C;
+            color: white;
+            box-shadow: rgba(0, 0, 0, 0.377) 7px 5px 10px 5px;
         }
 
         .upload_linkdiv {

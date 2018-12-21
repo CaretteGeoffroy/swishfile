@@ -37,7 +37,7 @@ function upload() {
 	global $twig;
 	
 	// CONFIG
-	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc' ); // Extensions autorisées.
+	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc', 'sql' ); // Extensions autorisées.
 
 	// Si on reçoit le formulaire...
 	if (isset($_POST["submit"])) {
@@ -145,34 +145,30 @@ function upload() {
 	}
 
 	}
-
 // ACTION : DOWNLOAD FILE
 function  download($idFolder, $idFile) {
-
 	file_list($idFolder);
 	download_file($idFolder, $idFile);
-	// download_zip();
-
 }
 
 function download_zip($idFolder) {
-	global $idFolder, $d, $file;
+	global $idFolder, $d, $file, $idFile;
 
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
 	$path = "/transfer-system/file/download/$d";
 	
-	
 	$zip = new ZipArchive(); 
-	if($zip->open('swish.zip', ZipArchive::CREATE) === true){
+	if($zip->open("cloud/$idFolder/swish.zip", ZipArchive::CREATE) === true){
 	  	echo '&quot;Zip.zip&quot; ouvert<br/>';
 	  	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
 			if($fichier != '.' && $fichier != '..' ){ 
+				$new_name = getFile_name($fichier);
 					$name = $fichier;
 				$test = "$rep/$name";
 			 // Ajout d'un fichier
-			  $zip->addFile($test,$name);	
+			  $zip->addFile($test,$new_name["file_name"]);	
 			} 
 		} 
 		closedir($dossier); 
@@ -182,9 +178,10 @@ function download_zip($idFolder) {
 			 // On referme l'archive
 	$zip->close();
 	echo 'Archive terminée<br/>';
-	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/swish.zip";
+
+	down($file, $idFile, $idFolder );
 	
-	down($file);
 	}else{
 	  echo 'Impossible d&#039;ouvrir &quot;Zip.zip<br/>';
 	}
@@ -192,7 +189,7 @@ function download_zip($idFolder) {
 
 
 function file_list($idFolder){
-	global $twig, $idFile, $url_zip,$name;	
+	global $twig, $idFile, $url_zip,$idFolder,$array_name;	
 
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
@@ -201,7 +198,6 @@ function file_list($idFolder){
 	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
 			if($fichier != '.' && $fichier != '..' ){ 
-				
 				$name = implode(getFile_name($fichier));
 				$array_path[] = $path; 
 				$array_fichier[] = $fichier; 
@@ -221,11 +217,14 @@ function file_list($idFolder){
 
 
 function download_file($idFolder, $idFile){
-	global $file, $name;
-	
+		
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-	down($file);
-} 
+	
+	down($file, $idFile, $idFolder);
+
+
+}
+
 
 // Calcul la taille total de tout les fichiers...
 function getTotalSize($array) {
@@ -320,7 +319,7 @@ function checkFormSend($senderMail, $receiverMail) {
 	} else {
 		return false;
 	}
-
+	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/swish.zip";
 }
 
 /* Récupère l'URL actuel,
@@ -337,13 +336,17 @@ function makeUrlForDownload($key) {
 	return $download_link;
 }
 
-function down($file){
-	global $file, $name;
+function down($file, $idFile, $idFolder){
+	
+	$fichier = $idFile;
+	// $extension = pathinfo($fichier, PATHINFO_EXTENSION);
 
+	$name = implode(getFile_name($fichier));
+	
 	if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.$file);
+		header('Content-Disposition: attachment; filename='.$name);
 		header('Content-Transfer-Encoding: binary');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -352,8 +355,15 @@ function down($file){
 		ob_clean();
 		flush();
 		readfile($file);
-		unlink($file);
 		exit;
 	}
+// MODELS :  Insert les infos dans la table files_downloaded.
+insertFolderDownload($idFolder);
+// var_dump( $idFolder);
+// MODELS :  Insert les infos dans la table files_uploaded.
+insertFileDownload($idFile);
+
+// var_dump( $idFile);
+
 }
 ?>

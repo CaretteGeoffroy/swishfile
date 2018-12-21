@@ -29,8 +29,6 @@ function getHistogrammeUpload($week) {
     Group by week, day";
    
  
-  
-
     $response = $bdd->prepare( $sql );
       // Bind les paramètres dans la requêtes...
     $response->bindParam(':week', $week, PDO::PARAM_INT);

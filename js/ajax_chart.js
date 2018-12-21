@@ -35,12 +35,14 @@ function fetchWeekInfo(week) {
 
             let dataUpload = res.dataUpload;
             let dataDownload = res.dataDownload;
+            let dataExtUpload = res.dataExtUpload; 
 
-            // console.log(dataDownload);
-            // console.log(dataUpload);
+            // console.log(dataExtUpload);
 
             let arrayUpload = arrayShowUploadFiles(dataUpload);
             let arrayDownload = arrayShowDownloadFiles(dataDownload);
+            let arrayExt = createLabelForExtUpload(dataExtUpload); 
+            let arrayDataExt = createArrayForDataExtUpload(dataExtUpload);
 
             // Bar chart
             let uploadCharts = new Chart(document.getElementById("chartUpload"), {
@@ -65,12 +67,14 @@ function fetchWeekInfo(week) {
             });
 
             let downloadCharts = new Chart(document.getElementById("chartDownload"), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
                     datasets: [{
                         label: "Download by date",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
+                        // backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
+                        fill: true,
+                        borderColor: "#3cba9f",
                         data: arrayDownload
                     }]
                 },
@@ -84,6 +88,27 @@ function fetchWeekInfo(week) {
                     }
                 }
             }); 
+
+
+
+            // 
+            new Chart(document.getElementById("chartExtUpload"), {
+                type: 'pie',
+                data: {
+                  labels: arrayExt,
+                  datasets: [{
+                    label: "Extension des fichiers téléchargés",
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    data: arrayDataExt
+                  }]
+                },
+                options: {
+                  title: {
+                    display: true,
+                    text: 'Extension des fichiers téléchargés'
+                  }
+                }
+            });
 
 
         })
@@ -167,4 +192,25 @@ function arrayShowDownloadFiles(dataObject) {
 
     return array;
 
+}
+
+
+function createLabelForExtUpload(object) {
+    let array = [];
+
+    for (let elem of object) {
+        array.push(elem.ext);
+    }
+
+    return array;
+}
+
+function createArrayForDataExtUpload(object) {
+    let array = [];
+
+    for (let elem of object) {
+        array.push(elem.count);
+    }
+
+    return array;
 }

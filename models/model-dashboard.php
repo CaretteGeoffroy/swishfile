@@ -59,4 +59,28 @@ function getAllWeeks() {
     // Retourne le resultat de la requête
 	return $weeks;
 }
+
+function getExtUpload($week) {
+
+    global $bdd;
+
+    $sql = 'SELECT SUBSTRING_INDEX(file_name,".", -1) as ext,
+            (SELECT WEEK(ADDDATE(upload_date,5-DAYOFWEEK(upload_date)),3)) as week, COUNT(*) AS count
+            FROM files
+            INNER JOIN files_uploaded ON files_uploaded.files_id = files.id
+            INNER JOIN user_upload ON user_upload.id = files_uploaded.user_upload_id
+            WHERE (SELECT WEEK(ADDDATE(upload_date,5-DAYOFWEEK(upload_date)),3)) = :week
+            GROUP BY ext';
+    
+    $response = $bdd->prepare( $sql );
+    $response->bindParam(':week', $week, PDO::PARAM_INT);
+    $response->execute();
+    $weeks = $response->fetchAll(PDO::FETCH_ASSOC);
+
+    // Retourne le resultat de la requête
+	return $weeks;
+}
+
+
+
 ?>

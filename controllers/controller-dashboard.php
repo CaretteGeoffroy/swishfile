@@ -21,7 +21,7 @@ switch ($action) {
         showWeek($idFolder);
         break;     
     default:
-        # code...
+        showlog();
         break;
 }
 
@@ -81,8 +81,9 @@ function showWeek($week) {
     $canvas = $twig->render('dashboard/block_ajax_chart.twig');
     $dataUpload = getHistogrammeUpload($week);
     $dataDownload = getHistogrammeDownload($week);
+    $dataExtUpload = getExtUpload($week); 
     // $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload);
-    $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload);
+    $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload, "dataExtUpload" => $dataExtUpload);
     echo json_encode($datas);
     // echo $datas;
 

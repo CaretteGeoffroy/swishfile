@@ -7,6 +7,7 @@ require_once('models/model-dashboard.php');
 $loader = new Twig_Loader_Filesystem('views');
 $twig = new Twig_Environment($loader);
  // RENDER DE LA PAGE PRINCIPAL.
+ 
 
 switch ($action) {
     case 'log':
@@ -16,6 +17,9 @@ switch ($action) {
     case 'verif':
         verif();
          break;
+    case 'week':
+        showWeek($idFolder);
+        break;     
     default:
         # code...
         break;
@@ -33,56 +37,81 @@ function showlog(){
 
 function verif(){
     global $twig;
+
+    // $uploadForWeek = getHistogrammeUpload(51);
+    // print_r($uploadForWeek); 
+
+
     
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){
-    
+        
+        // Récupérer les champs en POST
         $user = $_POST["inputName"];
         $password = $_POST["inputPassword"];
-    
-        $login = getIdentifier($user, $password);
         
-        // var_dump($login["nombre"]);
+        // Compare avec la BDD pour vérifier que l'utilisateur existe
+        $login = getIdentifier($user, $password);
+
+            // Si c'est bon...
             if($login["nombre"]==="1"){
-    
+                
+                // Démarre une session
                 session_start();
+
+                // $arrayContainsAllWeeks = getAllWeeks();
                 $_SESSION['user'] = $user;
                 $_SESSION['pwd'] = $password;
-            //    header('location:/transfer-system/dashboard');
-               echo $twig->render("dashboard/dashboard.twig");
+
+                $weeks = getAllWeeks();
+                // Render la page principal
+                echo $twig->render("dashboard/dashboard.twig", array("weeks" => $weeks));
 
             
-            }else{
-                header('location:/transfer-system/dashboard/error');
             }
+    } else {
+        header('location:/transfer-system/dashboard/error');
     }
 }
 
-// Dashboard
+// AJAX
+function showWeek($week) {
+
+    global $twig;
+    
+    $canvas = $twig->render('dashboard/block_ajax_chart.twig');
+    $dataUpload = getHistogrammeUpload($week);
+    $dataDownload = getHistogrammeDownload($week);
+    // $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload);
+    $datas = array("canvas" => $canvas, "dataUpload" => $dataUpload, "dataDownload" => $dataDownload);
+    echo json_encode($datas);
+    // echo $datas;
+
+    
+}
+
+
+// // Dashboard
 // function showHistogramme() {
-
-// //     if(isset($_POST['semaine']) {
-
-// //         global $twig, $week, $day, $count;
-       
-        
-       
-// //     echo $twig->render('dashboard.twig', 
-// //     array('' => $show, "week" => $week, "day" => $day, "count" => $count));
-// // }
-// // switch ($action) {
-// //     case 'current':
-// //     histogramme();
-
+//     global $twig, $id;
+//     if ($id !=0) {
+//         $details = bdd_actDetail($id);
+//     } elseif ($id < 1 || $id > 52) {
+//         $details = bdd_actDetail(1);
+//     }
+//     echo $twig->render('dashboard.twig', array('' => $details, "base_url" => $base_url));
+// }
+// switch ($action) {
+//     case 'list':
+//     histogramme();
 //         break;
 
-// case 'current':
-// //     histogramme();
+//     // case 'detail':
+//     //     actDetail();
+//     //     break;
 
-//         break;
-
-//         default:
-// 		echo $twig->render("dashboard/dashboard.twig"); 
-// 		break;
+//     //     default:
+// 	// 	echo $twig->render(".twig"); 
+// 	// 	break;
 // }
 
 ?>

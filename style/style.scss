@@ -1,4 +1,5 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../style/responsive/991px_768px.css";
 
 @font-face {
     font-family: 'lato';
@@ -191,6 +192,39 @@ body {
             }
         }
 
+        .download_maindiv{
+            background: white;
+            box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px;
+
+            .download_icon{
+                font-size: 5rem;
+                color: #E9654C;
+                margin-bottom: 1rem;
+            }
+
+            button{
+                background-color: #4AC6D4;
+                font-family: 'lato';
+                font-weight: bold;
+                color: white;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .files_contenu {
+                font-family: 'lato';
+                font-weight: bold;
+                color: #13252D;
+                text-decoration: underline;
+            }
+
+            .download_files_style{
+                font-size: 1.5rem;
+                font-family: 'lato';
+                color: #13252D;
+            }
+        }
+
         .upload_maindiv {
 
             height: 294px;
@@ -350,7 +384,7 @@ body {
                 border-width: 2px;
                 resize: none;
             }
-
+            
             button {
                 background-color: #13252D;
                 width: 30%;

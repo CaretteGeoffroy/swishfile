@@ -69,7 +69,7 @@ function fetchWeekInfo(week) {
                 data: {
                     labels: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
                     datasets: [{
-                        label: "Upload by date",
+                        label: "Download by date",
                         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f", "#3e95cd"],
                         data: arrayDownload
                     }]

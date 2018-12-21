@@ -192,7 +192,7 @@ function download_zip($idFolder) {
 
 
 function file_list($idFolder){
-	global $twig, $idFile, $url_zip,$idFolder,$array_name;	
+	global $twig, $idFile, $url_zip,$idFolder;	
 
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
@@ -220,16 +220,10 @@ function file_list($idFolder){
 
 
 function download_file($idFolder, $idFile){
-	global $file;
+	global $file,$twig;
 	
 	$file = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder/$idFile";
-	down($file);
-
-// MODELS :  Insert les infos dans la table files_uploaded.
-	insertFileDownload($idFile);
-// var_dump( $idFile);
-
-
+	down($file, $idFile, $idFolder);
 }
 
 
@@ -346,13 +340,11 @@ function makeUrlForDownload($key) {
 function down($file){
 	global $file, $idFile,$name;
 
-	
 	$fichier = $idFile;
 	$extension = pathinfo($fichier, PATHINFO_EXTENSION);
 	$name = implode(getFile_name($fichier));
-	
-	
-	if (file_exists($file)) {
+
+		if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.$name);
@@ -366,5 +358,8 @@ function down($file){
 		readfile($file);
 		exit;
 	}
+	// MODELS :  Insert les infos dans la table files_uploaded.
+// insertFileDownload($idFile);
+
 }
 ?>

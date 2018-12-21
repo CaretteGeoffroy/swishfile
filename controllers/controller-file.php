@@ -40,7 +40,7 @@ function upload() {
 	global $twig;
 	
 	// CONFIG
-	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc', 'sql' ); // Extensions autorisées.
+	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' , 'doc', 'docx', 'sql', 'zip', 'rtf', 'pdf', 'mp3', 'wav', 'rar', 'csv', 'ttf', 'ico', 'doc', 'psd', 'css', 'html', 'php', 'odp', 'ppt', 'doc', 'xls', 'xlsx', 'mp4', 'mpg', 'mpeg', 'wmv'); // Extensions autorisées.
 
 	// Si on reçoit le formulaire...
 	if (isset($_POST["submit"])) {

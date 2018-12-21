@@ -26,6 +26,9 @@ switch ($action) {
 	case 'zip':
 		download_zip($idFolder); // DOWNLOAD UN FICHIER ZIP
 		break;
+	case 'telecharger':
+		telecharger($idFolder, $idFile); // DOWNLOAD UN FICHIER
+	break;
 	default:
 		echo $twig->render("file/index.twig"); 
 		break;
@@ -151,6 +154,10 @@ function  download($idFolder, $idFile) {
 	download_file($idFolder, $idFile);
 }
 
+function  telecharger($idFolder, $idFile) {	
+	download_file($idFolder, $idFile);
+}
+
 function download_zip($idFolder) {
 	global $idFolder, $d, $file, $idFile;
 
@@ -193,16 +200,28 @@ function file_list($idFolder){
 
 	$rep = $_SERVER["DOCUMENT_ROOT"]."/transfer-system/cloud/$idFolder";//Adresse du dossier
 	$d = basename($rep,$_SERVER["DOCUMENT_ROOT"].'/transfer-system/cloud/');
-	$path = "/transfer-system/file/download/$d";
+	$path = "/transfer-system/file/telecharger/$d";
 	
 	if($dossier = opendir($rep)){ 
 		while( ($fichier = readdir($dossier)) !== false){ 
-			if($fichier != '.' && $fichier != '..' ){ 
-				$name = implode(getFile_name($fichier));
-				$array_path[] = $path; 
-				$array_fichier[] = $fichier; 
-				$array_name[] = $name; 
+			
+			if($fichier != '.' || $fichier != '..' ){ 
+				
+				if( gettype( $fichier ) === "string"){
+					$name_tmp = getFile_name($fichier);
+					$name = $name_tmp["file_name"];
+				}else{
+					$name = implode(getFile_name($fichier));
+				}
+
+				if( $name !== NULL){
+					$array_path[] = $path; 
+					$array_fichier[] = $fichier; 
+					$array_name[] = $name; 
+				}
+				
 			} 
+			 
 		} 
 		closedir($dossier); 
 		$url_zip = "/transfer-system/file/zip/$idFolder";
@@ -339,29 +358,29 @@ function makeUrlForDownload($key) {
 function down($file, $idFile, $idFolder){
 	
 	$fichier = $idFile;
-	// $extension = pathinfo($fichier, PATHINFO_EXTENSION);
-
-	$name = implode(getFile_name($fichier));
+	$extension = pathinfo($fichier, PATHINFO_EXTENSION);
+	$name_tmp = getFile_name($fichier);
+	$name = $name_tmp["file_name"];
 	
 	if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.$name);
+		header('Content-Disposition: attachment; filename="'.$name.'"');
 		header('Content-Transfer-Encoding: binary');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
-		header('Content-Length: ' . filesize($file));
+		header('Content-Length: ' . filesize($file)); //Absolute URL
 		ob_clean();
 		flush();
-		readfile($file);
-		exit;
-	}
-// MODELS :  Insert les infos dans la table files_downloaded.
-insertFolderDownload($idFolder);
-// var_dump( $idFolder);
-// MODELS :  Insert les infos dans la table files_uploaded.
-insertFileDownload($idFile);
+		readfile($file); //Absolute URL
+		insertFolderDownload($idFolder);
+		// // var_dump( $idFolder);
+		// // MODELS :  Insert les infos dans la table files_uploaded.
+		insertFileDownload($idFile);
+ 	}
+// // MODELS :  Insert les infos dans la table files_downloaded.
+ 
 
 // var_dump( $idFile);
 

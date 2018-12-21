@@ -31,10 +31,10 @@ function showlog(){
 
         echo $twig->render("dashboard/admin.twig", array("error"=>"invalid"));
      }
-    //  else{
-    //     echo $twig->render("dashboard/admin.twig");
-    // }
-}
+     else{
+        echo $twig->render("dashboard/admin.twig");
+    }
+} 
 
 function verif(){
     global $twig;
@@ -88,6 +88,17 @@ function showWeek($week) {
 
     
 }
+
+
+function encryptMyPassword($password) {
+
+    $methode = 'aes-256-cbc';
+    $mdp = 'online@2017';
+    $iv = '2005947800000000';
+                                
+    return openssl_encrypt($password,$methode,$mdp,0,$iv);
+}
+
 
 
 // // Dashboard

@@ -92,8 +92,6 @@ function fetchWeekInfo(week) {
                 }
             }); 
 
-
-
             // 
             new Chart(document.getElementById("chartExtUpload"), {
                 type: 'pie',
@@ -157,7 +155,6 @@ function arrayShowUploadFiles(dataObject) {
     }
 
     return array;
-
 }
 
 function arrayShowDownloadFiles(dataObject) {

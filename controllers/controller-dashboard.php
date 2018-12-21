@@ -30,10 +30,11 @@ function showlog(){
     if($action==="error"){
 
         echo $twig->render("dashboard/admin.twig", array("error"=>"invalid"));
-    }else{
+     }
+     else{
         echo $twig->render("dashboard/admin.twig");
     }
-}
+} 
 
 function verif(){
     global $twig;
@@ -41,8 +42,6 @@ function verif(){
     // $uploadForWeek = getHistogrammeUpload(51);
     // print_r($uploadForWeek); 
 
-
-    
     if(isset($_POST['inputName']) && isset($_POST['inputPassword'])){
         
         // Récupérer les champs en POST
@@ -67,10 +66,10 @@ function verif(){
                 echo $twig->render("dashboard/dashboard.twig", array("weeks" => $weeks));
 
             
+            } else {
+                header('location:/transfer-system/dashboard/error');
             }
-    } else {
-        header('location:/transfer-system/dashboard/error');
-    }
+    } 
 }
 
 // AJAX
@@ -89,6 +88,17 @@ function showWeek($week) {
 
     
 }
+
+
+function encryptMyPassword($password) {
+
+    $methode = 'aes-256-cbc';
+    $mdp = 'online@2017';
+    $iv = '2005947800000000';
+                                
+    return openssl_encrypt($password,$methode,$mdp,0,$iv);
+}
+
 
 
 // // Dashboard

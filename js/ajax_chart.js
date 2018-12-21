@@ -28,21 +28,24 @@ function fetchWeekInfo(week) {
         })
         .then((res) => {
 
-
             let wrapper = document.querySelector("#wrapper-chart");
-
+            
             wrapper.innerHTML = res.canvas;
+
+            let titleWeek = document.querySelector("#title-week");
 
             let dataUpload = res.dataUpload;
             let dataDownload = res.dataDownload;
             let dataExtUpload = res.dataExtUpload; 
 
             // console.log(dataExtUpload);
+            titleWeek.innerHTML = `Semaine n°${dataExtUpload[0].week}`;
 
             let arrayUpload = arrayShowUploadFiles(dataUpload);
             let arrayDownload = arrayShowDownloadFiles(dataDownload);
             let arrayExt = createLabelForExtUpload(dataExtUpload); 
             let arrayDataExt = createArrayForDataExtUpload(dataExtUpload);
+            // let arrayRandomColors = createArrayWithRandomColorForData(arrayDataExt);
 
             // Bar chart
             let uploadCharts = new Chart(document.getElementById("chartUpload"), {
@@ -89,8 +92,6 @@ function fetchWeekInfo(week) {
                 }
             }); 
 
-
-
             // 
             new Chart(document.getElementById("chartExtUpload"), {
                 type: 'pie',
@@ -98,7 +99,8 @@ function fetchWeekInfo(week) {
                   labels: arrayExt,
                   datasets: [{
                     label: "Extension des fichiers téléchargés",
-                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    // backgroundColor: arrayRandomColors,
+                    backgroundColor: ["#C5E9FF", "#6F0CE8", "#FF0000", "#E8A13C", "#FFFD48", "#24E82D", "#FFC5F6", "#2D06FF", "#FF8A02"],
                     data: arrayDataExt
                   }]
                 },
@@ -153,7 +155,6 @@ function arrayShowUploadFiles(dataObject) {
     }
 
     return array;
-
 }
 
 function arrayShowDownloadFiles(dataObject) {
@@ -214,3 +215,23 @@ function createArrayForDataExtUpload(object) {
 
     return array;
 }
+<<<<<<< HEAD
+=======
+
+// function createArrayWithRandomColorForData(arrayData) {
+    
+//     let array = [];
+
+//     for (let elem of arrayData) {
+//         let randColor = `rgba(${rand(0,255)},${rand(0,255)},${rand(0,255)},0.5)`;
+//         array.push(randColor);
+//     }
+
+//     return array;
+
+// }
+
+// function rand(min, max) {
+//     return Math.random() * (max - min) + min;
+//   }
+>>>>>>> e1b90d98c11f24112ef41c5f59d1f7eb22123df5

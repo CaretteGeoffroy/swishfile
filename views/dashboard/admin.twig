@@ -20,9 +20,7 @@
 
   <body class="text-center">
 
-    {% if error is defined %}
-    <p>"connection invalide"</p>
-    {% endif %}
+   
 
     <form class="form-signin" method="post" enctype="multipart/form-data" action="/transfer-system/dashboard/verif">
       <div class="acs-logo mx-auto mb-5">
@@ -39,6 +37,9 @@
         </label>
       </div>
       <button id="btn-connexion" class="btn btn-lg btn-danger btn-block" type="submit">Connexion</button>
+       {% if error is defined %}
+      <p class="text-danger text-error-identifiant">IDENTIFIANT INCORRECT</p>
+      {% endif %}
       <p class="mt-5 mb-3 text-muted">&copy; Swish File 2018-2019</p>
     </form>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

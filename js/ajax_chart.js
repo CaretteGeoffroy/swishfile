@@ -215,8 +215,6 @@ function createArrayForDataExtUpload(object) {
 
     return array;
 }
-<<<<<<< HEAD
-=======
 
 // function createArrayWithRandomColorForData(arrayData) {
     
@@ -234,4 +232,3 @@ function createArrayForDataExtUpload(object) {
 // function rand(min, max) {
 //     return Math.random() * (max - min) + min;
 //   }
->>>>>>> e1b90d98c11f24112ef41c5f59d1f7eb22123df5

@@ -1,25 +1,21 @@
-<?php 
+<?php
 
-    // Fichier pour se connecter à la base de donnée.
-    
-	$username = 'valerieh';
-	$password = 'hWz96+tt9yPcqA==';
-	$database ='valerieh_TRANSFER_DB';
-    $host = 'localhost';
-    
-    // $username = 'root';
-	// $password = 'online@2017';
-	// $database ='TRANSFER_DB';
-	// $host = 'localhost';
+// Fichier pour se connecter à la base de donnée.
 
-    try{
+$username = 'root';
+$password = 'online@2017';
+$database = 'TRANSFER_DB';
+$host = 'localhost';
 
-        $bdd = new PDO('mysql:host='.$host.';dbname='.$database.';charset=utf8',$username , $password);
+// $username = 'root';
+// $password = 'online@2017';
+// $database ='TRANSFER_DB';
+// $host = 'localhost';
 
-    }catch (Exception $e){
+try {
 
-        die('Erreur : ' . $e->getMessage());
+    $bdd = new PDO('mysql:host=' . $host . ';dbname=' . $database . ';charset=utf8', $username, $password);
+} catch (Exception $e) {
 
-    }
-
-?>
+    die('Erreur : ' . $e->getMessage());
+}

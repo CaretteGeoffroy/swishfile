@@ -192,17 +192,17 @@ body {
             }
         }
 
-        .download_maindiv{
+        .download_maindiv {
             background: white;
             box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px;
 
-            .download_icon{
+            .download_icon {
                 font-size: 5rem;
                 color: #E9654C;
                 margin-bottom: 1rem;
             }
 
-            button{
+            button {
                 background-color: #4AC6D4;
                 font-family: 'lato';
                 font-weight: bold;
@@ -218,7 +218,7 @@ body {
                 text-decoration: underline;
             }
 
-            .download_files_style{
+            .download_files_style {
                 font-size: 1.5rem;
                 font-family: 'lato';
                 color: #13252D;
@@ -232,35 +232,35 @@ body {
             position: relative;
             box-shadow: rgba(0, 0, 0, 0.377) 12px 0px 10px;
 
-            i{
+            i {
                 color: #E9654C;
                 font-size: 1.2rem;
             }
 
-            .mail_success{
+            .mail_success {
                 font-family: 'lato';
                 color: #13252D;
                 font-size: 1.5rem;
             }
 
-            input{
+            input {
                 font-family: 'lato';
                 color: rgba(0, 0, 0, 0.350);
             }
 
-            button{
+            button {
                 background-color: #4AC6D4;
                 border-color: #4AC6D4;
                 border-radius: 0;
 
-                span{
+                span {
                     font-weight: bold;
                     color: white;
                 }
             }
         }
 
-        .upload_footer{
+        .upload_footer {
             background: #E9654C;
             color: white;
             box-shadow: rgba(0, 0, 0, 0.377) 7px 5px 10px 5px;
@@ -283,7 +283,6 @@ body {
         }
 
         .left_content {
-            height: 50vh;
             background-color: #E9654C;
             box-shadow: rgba(0, 0, 0, 0.377) 12px 13px 10px;
             overflow-y: scroll;
@@ -299,6 +298,10 @@ body {
                 border-left: none;
                 border-top: none;
                 border-bottom-color: #E9654C;
+
+                @media (min-width: 768px) and (max-width: 991.98px) {
+                    font-size: 20px;
+                }
             }
         }
 
@@ -312,6 +315,10 @@ body {
             }
 
             .input_message {
+                @media (min-width: 768px) and (max-width: 991.98px) {
+                    font-size: 20px;
+                }
+
                 height: 35%;
             }
 
@@ -337,7 +344,7 @@ body {
                 i {
                     color: #A34735;
                     font-size: 12rem;
-                    margin-top: 12%;
+                    padding: 12% 0;
                 }
             }
 
@@ -361,6 +368,10 @@ body {
 
                 img {
                     width: 15%;
+
+                    @media (min-width: 768px) and (max-width: 991.98px) {
+                        width: 10%;
+                    }
 
                     &:hover {
                         cursor: pointer;
@@ -387,7 +398,7 @@ body {
 
             button {
                 background-color: #13252D;
-                width: 30%;
+                // width: 30%;
                 font-family: 'lato' !important;
                 font-size: 1.5rem !important;
                 font-weight: bold;
@@ -398,7 +409,7 @@ body {
     }
 }
 
-.extension { 
+.extension {
     font-family: 'lato';
     font-size: 12.5px;
     color: antiquewhite;
